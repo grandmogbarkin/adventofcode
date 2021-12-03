@@ -16,17 +16,8 @@ impl Solution for MySolution {
     let mut epsilon = 0;
     for i in (0..size).rev() {
       let mask = 1 << i;
-      let mut zeroes = 0;
-      let mut ones = 0;
-      
-      // Count ones and zeroes at index i
-      for n in diagnostic.iter() {
-        if n & mask != 0 {
-          ones += 1;
-        } else {
-          zeroes += 1;
-        }
-      }
+      let ones = diagnostic.iter().filter(|&n| *n & mask != 0).count();
+      let zeroes = diagnostic.iter().count() - ones;
       
       gamma = gamma << 1;
       epsilon = epsilon << 1;
@@ -42,23 +33,18 @@ impl Solution for MySolution {
     Ok(gamma * epsilon)
   }
 
+  // Breaking case: There's more than 1 value left, and none of them have a 0 for co2 or a 1 for oxygen.
   fn task_2(&self, filename: String) -> Result<i64, Box<dyn Error>> {
     let diagnostic = read::read_binary(fs::File::open(filename)?)?;
     let size = 0_i64.leading_zeros() - diagnostic.iter().max().unwrap().leading_zeros();
     
-    let mut oxygen = diagnostic.to_vec();
+    let mut oxygen = diagnostic.to_vec(); // make a copy
     for d in (0..size).rev() {
       if oxygen.iter().count() == 1 { break; }
       let mask = 1 << d;
-      let mut zeroes = 0;
-      let mut ones = 0;
-      for n in oxygen.iter() {
-        if n & mask != 0 {
-          ones += 1;
-        } else {
-          zeroes += 1;
-        }
-      }
+      let ones = oxygen.iter().filter(|&n| *n & mask != 0).count();
+      let zeroes = oxygen.iter().count() - ones;
+      
       if ones >= zeroes {
         oxygen.retain(|x| x & mask != 0);
       } else {
@@ -70,15 +56,9 @@ impl Solution for MySolution {
     for d in (0..size).rev() {
       if co2.iter().count() == 1 { break; }
       let mask = 1 << d;
-      let mut zeroes = 0;
-      let mut ones = 0;
-      for n in co2.iter() {
-        if n & mask != 0 {
-          ones += 1;
-        } else {
-          zeroes += 1;
-        }
-      }
+      let ones = co2.iter().filter(|&n| *n & mask != 0).count();
+      let zeroes = co2.iter().count() - ones;
+
       // println!("Zeroes: {}, Ones: {}\nDict: {:?}",zeroes,ones,co2);
       if zeroes <= ones {
         co2.retain(|x| x & mask == 0);
