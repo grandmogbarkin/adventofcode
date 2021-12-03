@@ -12,6 +12,15 @@ pub fn read_ints<R: Read>(io: R) -> Result<Vec<i64>, Error> {
     Ok(v)
 }
 
+pub fn read_binary<R: Read>(io: R) -> Result<Vec<i64>, Error> {
+    let br = BufReader::new(io);
+    let mut v = vec![];
+    for line in br.lines() {
+        v.push(i64::from_str_radix(line?.trim(), 2).unwrap());
+    }
+    Ok(v)
+}
+
 pub fn read_lines<R: Read>(io: R) -> Result<Vec<String>, Error> {
   let br = BufReader::new(io);
   let mut v: Vec<String> = vec![];

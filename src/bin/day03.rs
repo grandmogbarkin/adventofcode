@@ -8,28 +8,29 @@ struct MySolution { }
 
 impl Solution for MySolution {
   fn task_1(&self, filename: String) -> Result<i64, Box<dyn Error>> {
-    let diagnostic = read::read_lines(fs::File::open(filename)?)?;
+    let diagnostic = read::read_binary(fs::File::open(filename)?)?;
+    let size = 0_i64.leading_zeros() - diagnostic.iter().max().unwrap().leading_zeros();
     
-    let mut zeroes: Vec<isize> = vec![];
-    let mut ones: Vec<isize> = vec![];
-    for d in 0..diagnostic[0].chars().count() {
-      zeroes.push(0);
-      ones.push(0);
-      for n in 0..diagnostic.iter().count() {
-        if diagnostic[n].as_bytes()[d] as char == '1' {
-          ones[d] += 1;
-        } else {
-          zeroes[d] += 1;
-        }
-      }
-    }
-    
+    println!("Size: {}", size);
     let mut gamma = 0;
     let mut epsilon = 0;
-    for i in 0..zeroes.iter().count() {
+    for i in (0..size).rev() {
+      let mask = 1 << i;
+      let mut zeroes = 0;
+      let mut ones = 0;
+      
+      // Count ones and zeroes at index i
+      for n in diagnostic.iter() {
+        if n & mask != 0 {
+          ones += 1;
+        } else {
+          zeroes += 1;
+        }
+      }
+      
       gamma = gamma << 1;
       epsilon = epsilon << 1;
-      if ones[i] > zeroes[i] {
+      if ones > zeroes {
         gamma += 1;
       } else {
         epsilon += 1;
@@ -42,60 +43,54 @@ impl Solution for MySolution {
   }
 
   fn task_2(&self, filename: String) -> Result<i64, Box<dyn Error>> {
-    let diagnostic = read::read_lines(fs::File::open(filename)?)?;
+    let diagnostic = read::read_binary(fs::File::open(filename)?)?;
+    let size = 0_i64.leading_zeros() - diagnostic.iter().max().unwrap().leading_zeros();
     
-    let mut oxygen: Vec<String> = diagnostic.to_vec();
-    for d in 0..oxygen[0].chars().count() {
-      let size = oxygen.iter().count();
-      if size == 1 { break };
+    let mut oxygen = diagnostic.to_vec();
+    for d in (0..size).rev() {
+      if oxygen.iter().count() == 1 { break; }
+      let mask = 1 << d;
       let mut zeroes = 0;
       let mut ones = 0;
-      for n in 0..size {
-        if oxygen[n].as_bytes()[d] as char == '1' {
+      for n in oxygen.iter() {
+        if n & mask != 0 {
           ones += 1;
         } else {
           zeroes += 1;
         }
       }
       if ones >= zeroes {
-        oxygen.retain(|x| x.as_bytes()[d] as char == '1');
+        oxygen.retain(|x| x & mask != 0);
       } else {
-        oxygen.retain(|x| x.as_bytes()[d] as char == '0');
+        oxygen.retain(|x| x & mask == 0);
       }
     }
     
-    let mut co2: Vec<String> = diagnostic;
-    for d in 0..co2[0].chars().count() {
-      let size = co2.iter().count();
-      if size == 1 { break };
+    let mut co2 = diagnostic;
+    for d in (0..size).rev() {
+      if co2.iter().count() == 1 { break; }
+      let mask = 1 << d;
       let mut zeroes = 0;
       let mut ones = 0;
-      for n in 0..size {
-        if co2[n].as_bytes()[d] as char == '1' {
+      for n in co2.iter() {
+        if n & mask != 0 {
           ones += 1;
         } else {
           zeroes += 1;
         }
       }
+      // println!("Zeroes: {}, Ones: {}\nDict: {:?}",zeroes,ones,co2);
       if zeroes <= ones {
-        co2.retain(|x| x.as_bytes()[d] as char == '0');
+        co2.retain(|x| x & mask == 0);
       } else {
-        co2.retain(|x| x.as_bytes()[d] as char == '1');
+        co2.retain(|x| x & mask != 0);
       }
     }
     
     // println!("{:?}", oxygen);
     // println!("{:?}", co2);
     
-    let mut co2_num = 0;
-    let mut oxygen_num = 0;
-    for d in 0..co2[0].chars().count() {
-      co2_num = co2_num << 1;
-      oxygen_num = oxygen_num << 1;
-      if co2[0].as_bytes()[d] as char == '1' { co2_num += 1; }
-      if oxygen[0].as_bytes()[d] as char == '1' { oxygen_num += 1; }
-    }
-    Ok(co2_num * oxygen_num)
+    Ok(co2[0] * oxygen[0])
   }
 }
 
