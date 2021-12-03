@@ -9,7 +9,7 @@ struct MySolution { }
 impl Solution for MySolution {
   fn task_1(&self, filename: String) -> Result<i64, Box<dyn Error>> {
     let diagnostic = read::read_binary(fs::File::open(filename)?)?;
-    let size = 0_i64.leading_zeros() - diagnostic.iter().max().unwrap().leading_zeros();
+    let size = i64::BITS - diagnostic.iter().max().unwrap().leading_zeros();
     
     println!("Size: {}", size);
     let mut gamma = 0;
@@ -36,7 +36,7 @@ impl Solution for MySolution {
   // Breaking case: There's more than 1 value left, and none of them have a 0 for co2 or a 1 for oxygen.
   fn task_2(&self, filename: String) -> Result<i64, Box<dyn Error>> {
     let diagnostic = read::read_binary(fs::File::open(filename)?)?;
-    let size = 0_i64.leading_zeros() - diagnostic.iter().max().unwrap().leading_zeros();
+    let size = i64::BITS - diagnostic.iter().max().unwrap().leading_zeros();
     
     let mut oxygen = diagnostic.to_vec(); // make a copy
     for d in (0..size).rev() {
