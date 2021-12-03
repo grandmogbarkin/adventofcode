@@ -78,11 +78,11 @@ pub fn main() {
   let d = MySolution {};
 
   let args1: Vec<String> = vec!["1".to_string(),
-                                "inputs/input3.final.txt".to_string()];
+                                "inputs/input3.txt".to_string()];
   let _r1 = Exercise::run(args1, &d);
 
   let args2: Vec<String> = vec!["2".to_string(),
-                                "inputs/input3.final.txt".to_string()];
+                                "inputs/input3.txt".to_string()];
   let _r2 = Exercise::run(args2, &d);
 }
 
