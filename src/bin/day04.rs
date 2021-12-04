@@ -34,11 +34,11 @@ impl Board {
   
   fn check(&self, g: &Game) -> bool {
     for r in self.rows {
-      // println!("Checking row {} against {}", r, g.seen);
+      // println!("Checking row {:b}", r);
       if r & g.seen == r { return true; }
     }
     for c in self.columns {
-      // println!("Checking column {} against {}", c, g.seen);
+      // println!("Checking column {:b}", c);
       if c & g.seen == c { return true; }
     }
     return false;
@@ -46,7 +46,7 @@ impl Board {
 
   fn get_sum(&self, g: &Game) -> usize {
     let mut sum: usize = 0;
-    for r in self.rows {
+    for r in self.columns {
       sum += get_unmarked_numbers_sum(r, g.seen);
     }
     sum
@@ -64,7 +64,7 @@ fn get_unmarked_numbers_sum(n: u128, g: u128) -> usize {
   let mut i = 0;
   while unmarked != 0 {
     if unmarked & 1 == 1 {
-      println!("Found unmarked: {}", i);
+      // println!("Found unmarked: {}", i);
       sum += i;
     }
     unmarked >>= 1;
@@ -75,34 +75,40 @@ fn get_unmarked_numbers_sum(n: u128, g: u128) -> usize {
 
 struct Day4 { }
 
+fn get_state(input: Vec<String>) -> (Vec<usize>, Vec<Board>) {
+  let game: Vec<usize> = input[0].split(",").map(|s| s.parse().unwrap()).collect::<Vec<usize>>();
+  let mut boards: Vec<Board> = vec![];
+  
+  let mut cur_board: [[u64; 5]; 5] = [[0; 5]; 5];
+  let mut row = 0;
+  for i in 2..input.iter().count() {
+    if input[i] == "" {
+      boards.push(Board::new(cur_board));
+      cur_board = [[0; 5]; 5];
+      row = 0;
+      continue;
+    }
+    let sp = input[i].split(" ");
+    let mut col = 0;
+    for s in sp {
+      if s == "" { continue; }
+      cur_board[row][col] = s.parse().unwrap();
+      col += 1;
+    }
+    row += 1;
+  }
+  if row == 5 {
+    boards.push(Board::new(cur_board));
+  }
+  
+  (game, boards)
+}
+
 impl Solution for Day4 {
   fn task_1(&self, filename: String) -> Result<i64, Box<dyn Error>> {
     let input = read::read_lines(fs::File::open(filename)?)?;
-    
-    let game: Vec<usize> = input[0].split(",").map(|s| s.parse().unwrap()).collect::<Vec<usize>>();
-    let mut boards: Vec<Board> = vec![];
-    
-    let mut cur_board: [[u64; 5]; 5] = [[0; 5]; 5];
-    let mut row = 0;
-    for i in 2..input.iter().count() {
-      if input[i] == "" {
-        boards.push(Board::new(cur_board));
-        cur_board = [[0; 5]; 5];
-        row = 0;
-        continue;
-      }
-      let sp = input[i].split(" ");
-      let mut col = 0;
-      for s in sp {
-        if s == "" { continue; }
-        cur_board[row][col] = s.parse().unwrap();
-        col += 1;
-      }
-      row += 1;
-    }
-    if row == 5 {
-      boards.push(Board::new(cur_board));
-    }
+  
+    let (game, boards) = get_state(input);
     
     let mut live_game = Game { seen: 0 };
     
@@ -112,7 +118,7 @@ impl Solution for Day4 {
       for b in &boards {
         // println!("Checking board");
         if b.check(&live_game) {
-          println!("Found a winner! {}", i);
+          // println!("Found a winner! {}", i);
           return Ok((b.get_sum(&live_game) * i).try_into().unwrap());
         }
       }
@@ -122,10 +128,32 @@ impl Solution for Day4 {
   }
 
   fn task_2(&self, filename: String) -> Result<i64, Box<dyn Error>> {
-    let _test = read::read_lines(fs::File::open(filename)?)?;
+    let input = read::read_lines(fs::File::open(filename)?)?;
+  
+    let (game, mut boards) = get_state(input);
+    
+    let mut live_game = Game { seen: 0 };
+    
+    for i in game {
+      live_game.add_number(i);
+      // println!("Testing {}", i);
+      if boards.iter().count() > 1 {
+          boards.retain(|board| {
+          if board.check(&live_game) {
+            // println!("Found a winner! {}", i);
+            return false;
+          }
+          return true;
+        });
+      }
+      // println!("Played: {}, boards left: {}", i, boards.iter().count());
+      if boards.iter().count() == 1 && boards[0].check(&live_game) {
+        println!("Found a winner! {}", i);
+        return Ok((boards[0].get_sum(&live_game) * i).try_into().unwrap());
+      }
+    }
 
-    println!("Hello 2!");
-    Ok(2)
+    Ok(0)
   }
 }
 
@@ -160,6 +188,6 @@ mod tests {
     let d = super::Day4 {};
     let res = super::Exercise::run(args, &d);
     assert!(res.is_ok());
-    assert_eq!(res.unwrap(), 2);
+    assert_eq!(res.unwrap(), 1924);
   }
 }
