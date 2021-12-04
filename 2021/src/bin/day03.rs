@@ -4,9 +4,9 @@ use std::fs;
 use advent2021::exercise::{Exercise, Solution};
 use advent2021::read;
 
-struct MySolution { }
+struct Day3 { }
 
-impl Solution for MySolution {
+impl Solution for Day3 {
   fn task_1(&self, filename: String) -> Result<i64, Box<dyn Error>> {
     let diagnostic = read::read_binary(fs::File::open(filename)?)?;
     let size = i64::BITS - diagnostic.iter().max().unwrap().leading_zeros();
@@ -75,7 +75,7 @@ impl Solution for MySolution {
 }
 
 pub fn main() {
-  let d = MySolution {};
+  let d = Day3 {};
 
   let args1: Vec<String> = vec!["1".to_string(),
                                 "inputs/input3.txt".to_string()];
@@ -92,7 +92,7 @@ mod tests {
   fn test_1() {
     let args: Vec<String> = vec!["1".to_string(),
                                  "inputs/input3.test.txt".to_string()];
-    let d = super::MySolution {};
+    let d = super::Day3 {};
     let res = super::Exercise::run(args, &d);
     assert!(res.is_ok());
     assert_eq!(res.unwrap(), 198);
@@ -102,7 +102,7 @@ mod tests {
   fn test_2() {
     let args: Vec<String> = vec!["2".to_string(),
                                  "inputs/input3.test.txt".to_string()];
-    let d = super::MySolution {};
+    let d = super::Day3 {};
     let res = super::Exercise::run(args, &d);
     assert!(res.is_ok());
     assert_eq!(res.unwrap(), 230);

@@ -65,20 +65,6 @@ impl Board {
   /// # Arguments
   ///
   /// * `g` - Game state (drawn numbers)
-  ///
-  /// # Examples
-  ///
-  /// ```
-  /// let board = Board::new([
-  ///         [14, 21, 17, 24, 4],
-  ///         [10, 16, 15, 9, 19],
-  ///         [18, 8, 23, 26, 20],
-  ///         [22, 11, 13, 6, 5],
-  ///         [2, 0, 12, 3, 7]]);
-  /// let g = [7,4,9,5,11,17,23,2,0,14,21,24];
-  /// let game = Game::new(g);
-  /// assert(board.check(game));
-  /// ```
   fn check(&self, g: &Game) -> bool {
     for r in self.rows {
       // println!("Checking row {:b}", r);
@@ -262,5 +248,19 @@ mod tests {
     let res = super::Exercise::run(args, &d);
     assert!(res.is_ok());
     assert_eq!(res.unwrap(), 1924);
+  }
+  
+  #[test]
+  fn unit_test() {
+    let board = super::Board::new([
+            [14, 21, 17, 24, 4],
+            [10, 16, 15, 9, 19],
+            [18, 8, 23, 26, 20],
+            [22, 11, 13, 6, 5],
+            [2, 0, 12, 3, 7]]);
+    let g = vec![7,4,9,5,11,17,23,2,0,14,21,24];
+    let game = super::Game::new(g);
+    assert!(board.check(&game));
+    assert_eq!(188, board.get_sum(&game));
   }
 }
