@@ -5,9 +5,9 @@ use advent2021::exercise::{Exercise, Solution};
 use advent2021::read;
 
 
-struct Day0 { }
+struct Day6 { }
 
-impl Solution for Day0 {
+impl Solution for Day6 {
   fn task_1(&self, filename: String) -> Result<i64, Box<dyn Error>> {
     let input = read::read_lines(fs::File::open(filename)?)?;
     let mut ages: Vec<usize> = input[0].split(",").map(|s| s.parse().unwrap()).collect();
@@ -50,7 +50,7 @@ impl Solution for Day0 {
 }
 
 pub fn main() {
-  let d = Day0 {};
+  let d = Day6 {};
 
   let args1: Vec<String> = vec!["1".to_string(),
                                 "inputs/input6.txt".to_string()];
@@ -67,7 +67,7 @@ mod tests {
   fn test_1() {
     let args: Vec<String> = vec!["1".to_string(),
                                  "inputs/input6.test.txt".to_string()];
-    let d = super::Day0 {};
+    let d = super::Day6 {};
     let res = super::Exercise::run(args, &d);
     assert!(res.is_ok());
     assert_eq!(res.unwrap(), 5934);
@@ -77,7 +77,7 @@ mod tests {
   fn test_2() {
     let args: Vec<String> = vec!["2".to_string(),
                                  "inputs/input6.test.txt".to_string()];
-    let d = super::Day0 {};
+    let d = super::Day6 {};
     let res = super::Exercise::run(args, &d);
     assert!(res.is_ok());
     assert_eq!(res.unwrap(), 26984457539);
