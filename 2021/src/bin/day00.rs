@@ -8,14 +8,14 @@ struct Day0 { }
 
 impl Solution for Day0 {
   fn task_1(&self, filename: String) -> Result<i64, Box<dyn Error>> {
-    let _test = read::read_ints(fs::File::open(filename)?)?;
+    let _test = read::read_lines(fs::File::open(filename)?)?;
 
     println!("Hello 1!");
     Ok(1)
   }
 
   fn task_2(&self, filename: String) -> Result<i64, Box<dyn Error>> {
-    let _test = read::read_ints(fs::File::open(filename)?)?;
+    let _test = read::read_lines(fs::File::open(filename)?)?;
 
     println!("Hello 2!");
     Ok(2)
