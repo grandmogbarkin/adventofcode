@@ -1,12 +1,12 @@
 use std::error::Error as Error;
 use std::fs;
 
-use advent2021::exercise::{Exercise, Solution};
+use advent2021::exercise::{Exercise, SolutionT};
 use advent2021::read;
 
-struct Day3 { }
+struct Solution { }
 
-impl Solution for Day3 {
+impl SolutionT for Solution {
   fn day(&self) -> &str { "3" }
 
   fn task_1(&self, filename: String) -> Result<i64, Box<dyn Error>> {
@@ -77,7 +77,7 @@ impl Solution for Day3 {
 }
 
 pub fn main() {
-  let d = Day3 {};
+  let d = Solution {};
 
   let args1: Vec<String> = vec!["1".to_string(),
                                 format!("inputs/input{}.txt", d.day()).to_string()];
@@ -94,7 +94,7 @@ mod tests {
 
   #[test]
   fn test_1() {
-    let d = Day3 {};
+    let d = Solution {};
     let args: Vec<String> = vec!["1".to_string(),
                                  format!("inputs/input{}.test.txt", d.day()).to_string()];
     let res = Exercise::run(args, &d);
@@ -104,7 +104,7 @@ mod tests {
 
   #[test]
   fn test_2() {
-    let d = Day3 {};
+    let d = Solution {};
     let args: Vec<String> = vec!["2".to_string(),
                                  format!("inputs/input{}.test.txt", d.day()).to_string()];
     let res = Exercise::run(args, &d);

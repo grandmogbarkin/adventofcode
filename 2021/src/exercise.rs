@@ -19,7 +19,7 @@ impl Config {
     }
 }
 
-pub trait Solution {
+pub trait SolutionT {
   fn day(&self) -> &str;
   fn task_1(&self, filename: String) -> Result<i64, Box<dyn Error>>;
   fn task_2(&self, filename: String) -> Result<i64, Box<dyn Error>>;
@@ -28,7 +28,7 @@ pub trait Solution {
 pub struct Exercise { }
 
 impl Exercise {
-  pub fn run(args: Vec<String>, solution: &dyn Solution)
+  pub fn run(args: Vec<String>, solution: &dyn SolutionT)
         -> Result<i64, Box<dyn Error>> {
     let config: Config = Config::new(&args).unwrap();
     println!("Running {}", config.task);

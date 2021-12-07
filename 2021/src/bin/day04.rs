@@ -1,7 +1,7 @@
 use std::error::Error as Error;
 use std::fs;
 
-use advent2021::exercise::{Exercise, Solution};
+use advent2021::exercise::{Exercise, SolutionT};
 use advent2021::read;
 
 /// State of the game
@@ -116,7 +116,7 @@ fn get_unmarked_numbers_sum(n: u128, g: u128) -> usize {
   sum
 }
 
-struct Day4 { }
+struct Solution { }
 
 /// Initialize all game boards to the undrawn state based on input
 ///
@@ -158,7 +158,7 @@ fn get_state(input: Vec<String>) -> (Vec<usize>, Vec<Board>) {
   (game, boards)
 }
 
-impl Solution for Day4 {
+impl SolutionT for Solution {
   fn day(&self) -> &str { "4" }
 
   fn task_1(&self, filename: String) -> Result<i64, Box<dyn Error>> {
@@ -219,7 +219,7 @@ impl Solution for Day4 {
 }
 
 pub fn main() {
-  let d = Day4 {};
+  let d = Solution {};
 
   let args1: Vec<String> = vec!["1".to_string(),
                                 format!("inputs/input{}.txt", d.day()).to_string()];
@@ -236,7 +236,7 @@ mod tests {
 
   #[test]
   fn test_1() {
-    let d = Day4 {};
+    let d = Solution {};
     let args: Vec<String> = vec!["1".to_string(),
                                  format!("inputs/input{}.test.txt", d.day()).to_string()];
     let res = Exercise::run(args, &d);
@@ -246,7 +246,7 @@ mod tests {
 
   #[test]
   fn test_2() {
-    let d = Day4 {};
+    let d = Solution {};
     let args: Vec<String> = vec!["2".to_string(),
                                  format!("inputs/input{}.test.txt", d.day()).to_string()];
     let res = Exercise::run(args, &d);
