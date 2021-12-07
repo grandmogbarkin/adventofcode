@@ -5,9 +5,9 @@ use advent2021::exercise::{Exercise, Solution};
 use advent2021::read;
 
 fn mean(numbers: &Vec<i64>) -> i64 {
-    let sum = numbers.iter().sum::<i64>();
-    (sum as f64 / numbers.len() as f64).round() as i64
-  }
+  let sum = numbers.iter().sum::<i64>();
+  (sum as f64 / numbers.len() as f64).round() as i64
+}
 
 struct Day7 { }
 
