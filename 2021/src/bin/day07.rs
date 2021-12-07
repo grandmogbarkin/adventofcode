@@ -4,6 +4,11 @@ use std::fs;
 use advent2021::exercise::{Exercise, Solution};
 use advent2021::read;
 
+fn mean(numbers: &Vec<i64>) -> i64 {
+    let sum = numbers.iter().sum::<i64>();
+    (sum as f64 / numbers.len() as f64).round() as i64
+  }
+
 struct Day7 { }
 
 impl Solution for Day7 {
@@ -12,12 +17,10 @@ impl Solution for Day7 {
     let mut crabs: Vec<i64> = input[0].split(",").map(|s| s.parse().unwrap()).collect();
 
     crabs.sort();
-    let median = if (crabs.len() % 2)==0 {
-                    let ind_left = (crabs.len() / 2) - 1;
-                    let ind_right = crabs.len() / 2;
-                    (crabs[ind_left] + crabs[ind_right]) / 2
+    let mid = crabs.len() / 2;
+    let median = if (crabs.len() % 2) == 0 {
+                     mean(&vec![crabs[mid - 1], crabs[mid]])
                   } else {
-                    let mid = crabs.len() / 2;
                     crabs[mid]
                   };
     
@@ -30,11 +33,11 @@ impl Solution for Day7 {
     let input = read::read_lines(fs::File::open(filename)?)?;
     let crabs: Vec<i64> = input[0].split(",").map(|s| s.parse().unwrap()).collect();
 
-    let avg: f64 = crabs.iter().sum::<i64>() as f64 / crabs.len() as f64;
+    let avg: i64 = mean(&crabs);
     
     let fuel = crabs.iter().map(|c| {
-              let step = (c - avg.round() as i64).abs();
-              step * (step + 1) / 2
+              let n = (c - avg).abs();
+              n * (n + 1) / 2
             }).sum::<i64>();
     
     Ok(fuel)
