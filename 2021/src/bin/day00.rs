@@ -7,6 +7,8 @@ use advent2021::read;
 struct Day0 { }
 
 impl Solution for Day0 {
+  fn day(&self) -> &str { "1" }
+
   fn task_1(&self, filename: String) -> Result<i64, Box<dyn Error>> {
     let _test = read::read_lines(fs::File::open(filename)?)?;
 
@@ -26,32 +28,34 @@ pub fn main() {
   let d = Day0 {};
 
   let args1: Vec<String> = vec!["1".to_string(),
-                                "inputs/input1.txt".to_string()];
+                                format!("inputs/input{}.txt", d.day()).to_string()];
   let _r1 = Exercise::run(args1, &d);
 
   let args2: Vec<String> = vec!["2".to_string(),
-                                "inputs/input1.txt".to_string()];
+                                format!("inputs/input{}.txt", d.day()).to_string()];
   let _r2 = Exercise::run(args2, &d);
 }
 
 #[cfg(test)]
 mod tests {
+  use super::*;
+
   #[test]
   fn test_1() {
+    let d = Day0 {};
     let args: Vec<String> = vec!["1".to_string(),
-                                 "inputs/input1.test.txt".to_string()];
-    let d = super::Day0 {};
-    let res = super::Exercise::run(args, &d);
+                                 format!("inputs/input{}.test.txt", d.day()).to_string()];
+    let res = Exercise::run(args, &d);
     assert!(res.is_ok());
     assert_eq!(res.unwrap(), 1);
   }
 
   #[test]
   fn test_2() {
+    let d = Day0 {};
     let args: Vec<String> = vec!["2".to_string(),
-                                 "inputs/input1.test.txt".to_string()];
-    let d = super::Day0 {};
-    let res = super::Exercise::run(args, &d);
+                                 format!("inputs/input{}.test.txt", d.day()).to_string()];
+    let res = Exercise::run(args, &d);
     assert!(res.is_ok());
     assert_eq!(res.unwrap(), 2);
   }

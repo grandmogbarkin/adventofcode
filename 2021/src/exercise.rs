@@ -20,6 +20,7 @@ impl Config {
 }
 
 pub trait Solution {
+  fn day(&self) -> &str;
   fn task_1(&self, filename: String) -> Result<i64, Box<dyn Error>>;
   fn task_2(&self, filename: String) -> Result<i64, Box<dyn Error>>;
 }

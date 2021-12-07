@@ -159,6 +159,8 @@ fn get_state(input: Vec<String>) -> (Vec<usize>, Vec<Board>) {
 }
 
 impl Solution for Day4 {
+  fn day(&self) -> &str { "4" }
+
   fn task_1(&self, filename: String) -> Result<i64, Box<dyn Error>> {
     let input = read::read_lines(fs::File::open(filename)?)?;
   
@@ -220,46 +222,48 @@ pub fn main() {
   let d = Day4 {};
 
   let args1: Vec<String> = vec!["1".to_string(),
-                                "inputs/input4.txt".to_string()];
+                                format!("inputs/input{}.txt", d.day()).to_string()];
   let _r1 = Exercise::run(args1, &d);
 
   let args2: Vec<String> = vec!["2".to_string(),
-                                "inputs/input4.txt".to_string()];
+                                format!("inputs/input{}.txt", d.day()).to_string()];
   let _r2 = Exercise::run(args2, &d);
 }
 
 #[cfg(test)]
 mod tests {
+  use super::*;
+
   #[test]
   fn test_1() {
+    let d = Day4 {};
     let args: Vec<String> = vec!["1".to_string(),
-                                 "inputs/input4.test.txt".to_string()];
-    let d = super::Day4 {};
-    let res = super::Exercise::run(args, &d);
+                                 format!("inputs/input{}.test.txt", d.day()).to_string()];
+    let res = Exercise::run(args, &d);
     assert!(res.is_ok());
     assert_eq!(res.unwrap(), 4512);
   }
 
   #[test]
   fn test_2() {
+    let d = Day4 {};
     let args: Vec<String> = vec!["2".to_string(),
-                                 "inputs/input4.test.txt".to_string()];
-    let d = super::Day4 {};
-    let res = super::Exercise::run(args, &d);
+                                 format!("inputs/input{}.test.txt", d.day()).to_string()];
+    let res = Exercise::run(args, &d);
     assert!(res.is_ok());
     assert_eq!(res.unwrap(), 1924);
   }
   
   #[test]
   fn unit_test() {
-    let board = super::Board::new([
+    let board = Board::new([
             [14, 21, 17, 24, 4],
             [10, 16, 15, 9, 19],
             [18, 8, 23, 26, 20],
             [22, 11, 13, 6, 5],
             [2, 0, 12, 3, 7]]);
     let g = vec![7,4,9,5,11,17,23,2,0,14,21,24];
-    let game = super::Game::new(g);
+    let game = Game::new(g);
     assert!(board.check(&game));
     assert_eq!(188, board.get_sum(&game));
   }

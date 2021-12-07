@@ -12,6 +12,8 @@ fn mean(numbers: &Vec<i64>) -> i64 {
 struct Day7 { }
 
 impl Solution for Day7 {
+  fn day(&self) -> &str { "7" }
+
   fn task_1(&self, filename: String) -> Result<i64, Box<dyn Error>> {
     let input = read::read_lines(fs::File::open(filename)?)?;
     let mut crabs: Vec<i64> = input[0].split(",").map(|s| s.parse().unwrap()).collect();
@@ -48,32 +50,34 @@ pub fn main() {
   let d = Day7 {};
 
   let args1: Vec<String> = vec!["1".to_string(),
-                                "inputs/input7.txt".to_string()];
+                                format!("inputs/input{}.txt", d.day()).to_string()];
   let _r1 = Exercise::run(args1, &d);
 
   let args2: Vec<String> = vec!["2".to_string(),
-                                "inputs/input7.txt".to_string()];
+                                format!("inputs/input{}.txt", d.day()).to_string()];
   let _r2 = Exercise::run(args2, &d);
 }
 
 #[cfg(test)]
 mod tests {
+  use super::*;
+
   #[test]
   fn test_1() {
+    let d = Day7 {};
     let args: Vec<String> = vec!["1".to_string(),
-                                 "inputs/input7.test.txt".to_string()];
-    let d = super::Day7 {};
-    let res = super::Exercise::run(args, &d);
+                                 format!("inputs/input{}.test.txt", d.day()).to_string()];
+    let res = Exercise::run(args, &d);
     assert!(res.is_ok());
     assert_eq!(res.unwrap(), 37);
   }
 
   #[test]
   fn test_2() {
+    let d = Day7 {};
     let args: Vec<String> = vec!["2".to_string(),
-                                 "inputs/input7.test.txt".to_string()];
-    let d = super::Day7 {};
-    let res = super::Exercise::run(args, &d);
+                                 format!("inputs/input{}.test.txt", d.day()).to_string()];
+    let res = Exercise::run(args, &d);
     assert!(res.is_ok());
     assert_eq!(res.unwrap(), 168);
   }

@@ -4,55 +4,28 @@ use std::fs;
 use advent2021::exercise::{Exercise, Solution};
 use advent2021::read;
 
-struct Day1 { }
+struct Day8 { }
 
-impl Solution for Day1 {
-  fn day(&self) -> &str { "1" }
+impl Solution for Day8 {
+  fn day(&self) -> &str { "8" }
 
   fn task_1(&self, filename: String) -> Result<i64, Box<dyn Error>> {
-    let depths = read::read_ints(fs::File::open(filename)?)?;
-  
-    println!("{} lines", depths.iter().count());
-  
-    let mut last: &i64 = &0;
-    let mut count: i64 = -1;
-  
-    for i in depths.iter() {
-      if i > last {
-        count += 1;
-      }
-      last = i;
-    }
-  
-    println!("{} times height has increased", count);
-  
-    Ok(count)
+    let _test = read::read_lines(fs::File::open(filename)?)?;
+
+    println!("Hello 1!");
+    Ok(1)
   }
 
   fn task_2(&self, filename: String) -> Result<i64, Box<dyn Error>> {
-    let depths = read::read_ints(fs::File::open(filename)?)?;
-  
-    println!("{} lines", depths.iter().count());
-  
-    let mut last: i64 = depths[0] + depths[1] + depths[2];
-    let mut count: i64 = 0;
-  
-    for n in 3..depths.iter().count() {
-      let cur = depths[n] + depths[n-1] + depths[n-2];
-      if cur > last {
-        count += 1;
-      }
-      last = cur;
-    }
-  
-    println!("{} times height has increased", count);
-  
-    Ok(count)
+    let _test = read::read_lines(fs::File::open(filename)?)?;
+
+    println!("Hello 2!");
+    Ok(2)
   }
 }
 
 pub fn main() {
-  let d = Day1 {};
+  let d = Day8 {};
 
   let args1: Vec<String> = vec!["1".to_string(),
                                 format!("inputs/input{}.txt", d.day()).to_string()];
@@ -69,21 +42,21 @@ mod tests {
 
   #[test]
   fn test_1() {
-    let d = Day1 {};
+    let d = Day8 {};
     let args: Vec<String> = vec!["1".to_string(),
                                  format!("inputs/input{}.test.txt", d.day()).to_string()];
     let res = Exercise::run(args, &d);
     assert!(res.is_ok());
-    assert_eq!(res.unwrap(), 7);
+    assert_eq!(res.unwrap(), 1);
   }
 
   #[test]
   fn test_2() {
-    let d = Day1 {};
+    let d = Day8 {};
     let args: Vec<String> = vec!["2".to_string(),
                                  format!("inputs/input{}.test.txt", d.day()).to_string()];
     let res = Exercise::run(args, &d);
     assert!(res.is_ok());
-    assert_eq!(res.unwrap(), 5);
+    assert_eq!(res.unwrap(), 2);
   }
 }

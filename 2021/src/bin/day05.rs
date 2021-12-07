@@ -112,6 +112,8 @@ fn parse_input(filename: String, ignore_diags: bool) -> Result<i64, Box<dyn Erro
 struct Day5 { }
 
 impl Solution for Day5 {
+  fn day(&self) -> &str { "5" }
+
   fn task_1(&self, filename: String) -> Result<i64, Box<dyn Error>> {
     parse_input(filename, true)
   }
@@ -125,32 +127,34 @@ pub fn main() {
   let d = Day5 {};
 
   let args1: Vec<String> = vec!["1".to_string(),
-                                "inputs/input5.txt".to_string()];
+                                format!("inputs/input{}.txt", d.day()).to_string()];
   let _r1 = Exercise::run(args1, &d);
 
   let args2: Vec<String> = vec!["2".to_string(),
-                                "inputs/input5.txt".to_string()];
+                                format!("inputs/input{}.txt", d.day()).to_string()];
   let _r2 = Exercise::run(args2, &d);
 }
 
 #[cfg(test)]
 mod tests {
+  use super::*;
+
   #[test]
   fn test_1() {
+    let d = Day5 {};
     let args: Vec<String> = vec!["1".to_string(),
-                                 "inputs/input5.test.txt".to_string()];
-    let d = super::Day5 {};
-    let res = super::Exercise::run(args, &d);
+                                 format!("inputs/input{}.test.txt", d.day()).to_string()];
+    let res = Exercise::run(args, &d);
     assert!(res.is_ok());
     assert_eq!(res.unwrap(), 5);
   }
 
   #[test]
   fn test_2() {
+    let d = Day5 {};
     let args: Vec<String> = vec!["2".to_string(),
-                                 "inputs/input5.test.txt".to_string()];
-    let d = super::Day5 {};
-    let res = super::Exercise::run(args, &d);
+                                 format!("inputs/input{}.test.txt", d.day()).to_string()];
+    let res = Exercise::run(args, &d);
     assert!(res.is_ok());
     assert_eq!(res.unwrap(), 12);
   }
