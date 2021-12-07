@@ -223,14 +223,7 @@ impl SolutionT for Solution {
 
 pub fn main() {
   let d = Solution {};
-
-  let args1: Vec<String> = vec!["1".to_string(),
-                                format!("inputs/input{}.txt", d.day()).to_string()];
-  let _r1 = Exercise::run(args1, &d);
-
-  let args2: Vec<String> = vec!["2".to_string(),
-                                format!("inputs/input{}.txt", d.day()).to_string()];
-  let _r2 = Exercise::run(args2, &d);
+  let _r2 = Exercise::run(&d, false);
 }
 
 #[cfg(test)]
@@ -238,23 +231,9 @@ mod tests {
   use super::*;
 
   #[test]
-  fn test_1() {
+  fn it_is_working() {
     let d = Solution {};
-    let args: Vec<String> = vec!["1".to_string(),
-                                 format!("inputs/input{}.test.txt", d.day()).to_string()];
-    let res = Exercise::run(args, &d);
-    assert!(res.is_ok());
-    assert_eq!(res.unwrap(), d.test1_result());
-  }
-
-  #[test]
-  fn test_2() {
-    let d = Solution {};
-    let args: Vec<String> = vec!["2".to_string(),
-                                 format!("inputs/input{}.test.txt", d.day()).to_string()];
-    let res = Exercise::run(args, &d);
-    assert!(res.is_ok());
-    assert_eq!(res.unwrap(), d.test2_result());
+    Exercise::run(&d, true);
   }
   
   #[test]

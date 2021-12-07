@@ -30,18 +30,23 @@ pub trait SolutionT {
 pub struct Exercise { }
 
 impl Exercise {
-  pub fn run(args: Vec<String>, solution: &dyn SolutionT)
-        -> Result<i64, Box<dyn Error>> {
-    let config: Config = Config::new(&args).unwrap();
-    println!("Running {}", config.task);
-    println!("With file {}", config.filename);
-
-    let r = match &config.task[..] {
-      "1" => solution.task_1(config.filename),
-      "2" => solution.task_2(config.filename),
-      _ => simple_error::bail!("Invalid task: {}", config.task),
+  pub fn run(solution: &dyn SolutionT, test: bool) {
+    let filename = if test {
+      format!("inputs/input{}.test.txt", solution.day()).to_string()
+    } else {
+      format!("inputs/input{}.txt", solution.day()).to_string()
     };
-    println!("Result for task {}: {:?}", config.task, r);
-    r
+    let r1 = solution.task_1(filename.to_string());
+    println!("Result for task 1: {:?}", r1);
+    if test {
+      assert!(r1.is_ok());
+      assert_eq!(r1.unwrap(), solution.test1_result());
+    }
+    let r2 = solution.task_2(filename.to_string());
+    println!("Result for task 2: {:?}", r2);
+    if test {
+      assert!(r2.is_ok());
+      assert_eq!(r2.unwrap(), solution.test2_result());
+    }
   }
 }
