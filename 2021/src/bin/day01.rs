@@ -9,6 +9,9 @@ struct Solution { }
 impl SolutionT for Solution {
   fn day(&self) -> &str { "1" }
 
+  fn test1_result(&self) -> i64 { 7 }
+  fn test2_result(&self) -> i64 { 5 }
+  
   fn task_1(&self, filename: String) -> Result<i64, Box<dyn Error>> {
     let depths = read::read_ints(fs::File::open(filename)?)?;
   
@@ -74,7 +77,7 @@ mod tests {
                                  format!("inputs/input{}.test.txt", d.day()).to_string()];
     let res = Exercise::run(args, &d);
     assert!(res.is_ok());
-    assert_eq!(res.unwrap(), 7);
+    assert_eq!(res.unwrap(), d.test1_result());
   }
 
   #[test]
@@ -84,6 +87,6 @@ mod tests {
                                  format!("inputs/input{}.test.txt", d.day()).to_string()];
     let res = Exercise::run(args, &d);
     assert!(res.is_ok());
-    assert_eq!(res.unwrap(), 5);
+    assert_eq!(res.unwrap(), d.test2_result());
   }
 }

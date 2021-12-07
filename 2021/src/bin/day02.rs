@@ -9,6 +9,9 @@ struct Solution { }
 impl SolutionT for Solution {
   fn day(&self) -> &str { "2" }
 
+  fn test1_result(&self) -> i64 { 150 }
+  fn test2_result(&self) -> i64 { 900 }
+  
   fn task_1(&self, filename: String) -> Result<i64, Box<dyn Error>> {
     let directions = read::read_lines(fs::File::open(filename)?)?;
   
@@ -104,7 +107,7 @@ mod tests {
                                  format!("inputs/input{}.test.txt", d.day()).to_string()];
     let res = Exercise::run(args, &d);
     assert!(res.is_ok());
-    assert_eq!(res.unwrap(), 150);
+    assert_eq!(res.unwrap(), d.test1_result());
   }
 
   #[test]
@@ -114,6 +117,6 @@ mod tests {
                                  format!("inputs/input{}.test.txt", d.day()).to_string()];
     let res = Exercise::run(args, &d);
     assert!(res.is_ok());
-    assert_eq!(res.unwrap(), 900);
+    assert_eq!(res.unwrap(), d.test2_result());
   }
 }

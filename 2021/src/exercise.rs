@@ -21,6 +21,8 @@ impl Config {
 
 pub trait SolutionT {
   fn day(&self) -> &str;
+  fn test1_result(&self) -> i64;
+  fn test2_result(&self) -> i64;
   fn task_1(&self, filename: String) -> Result<i64, Box<dyn Error>>;
   fn task_2(&self, filename: String) -> Result<i64, Box<dyn Error>>;
 }
