@@ -1,5 +1,4 @@
 use std::error::Error as Error;
-use std::fs;
 
 use advent2021::exercise::{Exercise, SolutionT};
 use advent2021::read;
@@ -91,7 +90,7 @@ impl SeaMap {
 }
 
 fn parse_input(filename: String, ignore_diags: bool) -> Result<i64, Box<dyn Error>> {
-  let directions = read::read_lines(fs::File::open(filename)?)?;
+  let directions = read::read_lines(filename)?;
 
   let mut sea_map = SeaMap::new();
   

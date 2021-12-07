@@ -1,5 +1,4 @@
 use std::error::Error as Error;
-use std::fs;
 
 use advent2021::exercise::{Exercise, SolutionT};
 use advent2021::read;
@@ -165,7 +164,7 @@ impl SolutionT for Solution {
   fn test2_result(&self) -> i64 { 1924 }
   
   fn task_1(&self, filename: String) -> Result<i64, Box<dyn Error>> {
-    let input = read::read_lines(fs::File::open(filename)?)?;
+    let input = read::read_lines(filename)?;
   
     let (game, boards) = get_state(input);
     
@@ -189,7 +188,7 @@ impl SolutionT for Solution {
   }
 
   fn task_2(&self, filename: String) -> Result<i64, Box<dyn Error>> {
-    let input = read::read_lines(fs::File::open(filename)?)?;
+    let input = read::read_lines(filename)?;
   
     let (game, mut boards) = get_state(input);
     

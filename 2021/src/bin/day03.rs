@@ -1,5 +1,4 @@
 use std::error::Error as Error;
-use std::fs;
 
 use advent2021::exercise::{Exercise, SolutionT};
 use advent2021::read;
@@ -13,7 +12,7 @@ impl SolutionT for Solution {
   fn test2_result(&self) -> i64 { 230 }
   
   fn task_1(&self, filename: String) -> Result<i64, Box<dyn Error>> {
-    let diagnostic = read::read_binary(fs::File::open(filename)?)?;
+    let diagnostic = read::read_binary(filename)?;
     let size = i64::BITS - diagnostic.iter().max().unwrap().leading_zeros();
     
     println!("Size: {}", size);
@@ -40,7 +39,7 @@ impl SolutionT for Solution {
 
   // Breaking case: There's more than 1 value left, and none of them have a 0 for co2 or a 1 for oxygen.
   fn task_2(&self, filename: String) -> Result<i64, Box<dyn Error>> {
-    let diagnostic = read::read_binary(fs::File::open(filename)?)?;
+    let diagnostic = read::read_binary(filename)?;
     let size = i64::BITS - diagnostic.iter().max().unwrap().leading_zeros();
     
     let mut oxygen = diagnostic.to_vec(); // make a copy

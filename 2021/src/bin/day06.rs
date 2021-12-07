@@ -1,5 +1,4 @@
 use std::error::Error as Error;
-use std::fs;
 
 use advent2021::exercise::{Exercise, SolutionT};
 use advent2021::read;
@@ -14,7 +13,7 @@ impl SolutionT for Solution {
   fn test2_result(&self) -> i64 { 26984457539 }
   
   fn task_1(&self, filename: String) -> Result<i64, Box<dyn Error>> {
-    let input = read::read_lines(fs::File::open(filename)?)?;
+    let input = read::read_lines(filename)?;
     let mut ages: Vec<usize> = input[0].split(",").map(|s| s.parse().unwrap()).collect();
 
     for _i in 0..80 {
@@ -34,7 +33,7 @@ impl SolutionT for Solution {
   }
 
   fn task_2(&self, filename: String) -> Result<i64, Box<dyn Error>> {
-    let input = read::read_lines(fs::File::open(filename)?)?;
+    let input = read::read_lines(filename)?;
     let ages: Vec<usize> = input[0].split(",").map(|s| s.parse().unwrap()).collect();
 
     let mut fish_by_day: [usize; 9] = [0; 9];

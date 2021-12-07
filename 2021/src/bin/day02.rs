@@ -1,5 +1,4 @@
 use std::error::Error as Error;
-use std::fs;
 
 use advent2021::exercise::{Exercise, SolutionT};
 use advent2021::read;
@@ -13,7 +12,7 @@ impl SolutionT for Solution {
   fn test2_result(&self) -> i64 { 900 }
   
   fn task_1(&self, filename: String) -> Result<i64, Box<dyn Error>> {
-    let directions = read::read_lines(fs::File::open(filename)?)?;
+    let directions = read::read_lines(filename)?;
   
     let mut horizontal: i64 = 0;
     let mut depth: i64 = 0;
@@ -48,7 +47,7 @@ impl SolutionT for Solution {
 
 
   fn task_2(&self, filename: String) -> Result<i64, Box<dyn Error>> {
-    let directions = read::read_lines(fs::File::open(filename)?)?;
+    let directions = read::read_lines(filename)?;
   
     let mut horizontal: i64 = 0;
     let mut depth: i64 = 0;

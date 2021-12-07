@@ -1,5 +1,4 @@
 use std::error::Error as Error;
-use std::fs;
 
 use advent2021::exercise::{Exercise, SolutionT};
 use advent2021::read;
@@ -18,7 +17,7 @@ impl SolutionT for Solution {
   fn test2_result(&self) -> i64 { 168 }
   
   fn task_1(&self, filename: String) -> Result<i64, Box<dyn Error>> {
-    let input = read::read_lines(fs::File::open(filename)?)?;
+    let input = read::read_lines(filename)?;
     let mut crabs: Vec<i64> = input[0].split(",").map(|s| s.parse().unwrap()).collect();
 
     crabs.sort();
@@ -35,7 +34,7 @@ impl SolutionT for Solution {
   }
 
   fn task_2(&self, filename: String) -> Result<i64, Box<dyn Error>> {
-    let input = read::read_lines(fs::File::open(filename)?)?;
+    let input = read::read_lines(filename)?;
     let crabs: Vec<i64> = input[0].split(",").map(|s| s.parse().unwrap()).collect();
 
     let avg: i64 = mean(&crabs);
