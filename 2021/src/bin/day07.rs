@@ -39,13 +39,21 @@ impl SolutionT for Solution {
 
     let avg: i64 = mean(&crabs);
     
-    let fuel = crabs.iter().map(|c| {
-              let n = (c - avg).abs();
-              n * (n + 1) / 2
-            }).sum::<i64>();
+    // The average will actually be +- 0.5 from the proper min.
+    // So just test all three values in case it's on the wrong side of the rounding.
+    let fuel: Vec<i64> = vec![sum_fuel_series(&crabs, avg),
+                              sum_fuel_series(&crabs, avg - 1),
+                              sum_fuel_series(&crabs, avg + 1)];
     
-    Ok(fuel)
+    Ok(*fuel.iter().min().unwrap())
   }
+}
+
+fn sum_fuel_series(crabs: &Vec<i64>, mid: i64) -> i64 {
+  crabs.iter().map(|c| {
+                let n = (c - mid).abs();
+                n * (n + 1) / 2
+              }).sum::<i64>()
 }
 
 pub fn main() {
