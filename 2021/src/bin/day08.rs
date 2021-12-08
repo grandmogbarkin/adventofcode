@@ -4,15 +4,21 @@ use std::error::Error as Error;
 use advent2021::exercise::{Exercise, SolutionT};
 use advent2021::read;
 
+fn sort_chars(s: String) -> String {
+  let mut v: Vec<char> = s.chars().collect();
+  v.sort();
+  v.into_iter().collect::<String>()
+}
+
 struct Solution { }
 
 impl SolutionT for Solution {
   fn day(&self) -> &str { "8" }
 
-  // 1->2, 4->4, 7->3, 8->7
   fn test1_result(&self) -> i64 { 26 }
   fn test2_result(&self) -> i64 { 61229 }
   
+  // 1->2, 4->4, 7->3, 8->7
   fn task_1(&self, filename: String) -> Result<i64, Box<dyn Error>> {
     let input = read::read_lines(filename)?;
     
@@ -69,7 +75,7 @@ impl SolutionT for Solution {
           _ => continue,
         }
       }
-      // 0, 6, 9
+      // 0, 6, 9 -> len(6)
       // 6 does not contain 1
       // 0 does not contain 4
       let one_segments: HashSet<char> = codes[1].chars().collect();
@@ -85,12 +91,13 @@ impl SolutionT for Solution {
           codes[9] = sort_chars(d.to_string());
         }
       }
-      // 2, 3, 5
+      // 2, 3, 5 -> len(5)
       // 3 contains 1
       // 2 contains 'cc' segment
+      // 'cc' segment is the difference between 1 and 6.
       let six_segments: HashSet<char> = codes[6].chars().collect();
       let cc_segment: &char = one_segments.difference(&six_segments).next().unwrap();
-      println!("{:?}", cc_segment);
+      // println!("{:?}", cc_segment);
       for d in input.iter() {
         if d.len() != 5 { continue; }
         let input_segments: HashSet<char> = d.chars().collect();
@@ -107,30 +114,23 @@ impl SolutionT for Solution {
       for i in 0..codes.len() {
         decoded.insert(&codes[i], i);
       }
-      println!("Decoded: {:?}", decoded);
+      // println!("Decoded: {:?}", decoded);
       
       let mut output_number = 0;
       for d in output.iter() {
         output_number *= 10;
         let val = decoded.get(&sort_chars(d.to_string()));
         if val.is_none() {
-          output_number += 5;
-        } else {
-          output_number += val.unwrap();
+          simple_error::bail!(format!("Could not identify segments: {}", d));
         }
+        output_number += val.unwrap();
       }
       output_sum += output_number as i64;
-      println!("{:?} is {}", parsed[1], output_number);
+      // println!("{:?} is {}", parsed[1], output_number);
     }
 
     Ok(output_sum)
   }
-}
-
-fn sort_chars(s: String) -> String {
-  let mut v: Vec<char> = s.chars().collect();
-  v.sort();
-  v.into_iter().collect::<String>()
 }
 
 pub fn main() {
