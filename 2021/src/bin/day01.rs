@@ -55,7 +55,7 @@ impl SolutionT for Solution {
 
 pub fn main() {
   let d = Solution {};
-  let _r2 = Exercise::run(&d, false);
+  Exercise::run(&d, false)
 }
 
 #[cfg(test)]
@@ -65,6 +65,6 @@ mod tests {
   #[test]
   fn it_is_working() {
     let d = Solution {};
-    Exercise::run(&d, true);
+    Exercise::run(&d, true)
   }
 }
