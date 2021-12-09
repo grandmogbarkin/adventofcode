@@ -37,15 +37,10 @@ impl SolutionT for Solution {
     let mut basin_size: Vec<i64> = vec![];
     for i in 0..heightmap.len() {
       for j in 0..heightmap[i].len() {
-        if is_low_point(&heightmap, i, j) {
-          // It is possible for a basin to have multiple low points, in which case we
-          // could be double double counting basins. This implementation works because whenever
-          // we count a basin, we actually update every point in the basin to be a 9, so any
-          // additional low points are cleared.
-          // For example 1 basin, 2 low points:
-          // 999999
-          // 987879
-          // 999999
+        // if is_low_point(&heightmap, i, j) {
+          // Just calculate the basin starting at every point.
+          // The method will flood each basin it finds, so they'll only be counted once.
+          // A few 0s at the beginning will soon be pushed out.
           let cur_basin_size = basin_count(&mut heightmap, i, j);
           if basin_size.len() < 3 {
             basin_size.push(cur_basin_size);
@@ -60,7 +55,7 @@ impl SolutionT for Solution {
             }
           }
           println!("Counted basin: {}, {:?}", cur_basin_size, basin_size);
-        }
+        // }
       }
     }
 
