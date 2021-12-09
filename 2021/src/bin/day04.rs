@@ -158,7 +158,7 @@ fn get_state(input: Vec<String>) -> (Vec<usize>, Vec<Board>) {
 }
 
 impl SolutionT for Solution {
-  fn day(&self) -> &str { "4" }
+  fn day(&self) -> &str { "04" }
 
   fn test1_result(&self) -> i64 { 4512 }
   fn test2_result(&self) -> i64 { 1924 }

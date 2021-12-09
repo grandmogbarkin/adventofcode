@@ -15,7 +15,7 @@ pub struct Exercise { }
 impl Exercise {
   pub fn run(solution: &dyn SolutionT, test: bool) {
     let test_str = if test { ".test" } else { "" };
-    let filename = format!("inputs/input{}{}.txt", solution.day(), test_str).to_string();
+    let filename = format!("inputs/day{}/input{}.txt", solution.day(), test_str).to_string();
     let r1 = solution.task_1(filename.to_string());
     println!("Result for task 1: {:?}", r1);
     if test {

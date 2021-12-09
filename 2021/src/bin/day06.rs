@@ -7,7 +7,7 @@ use advent2021::read;
 struct Solution { }
 
 impl SolutionT for Solution {
-  fn day(&self) -> &str { "6" }
+  fn day(&self) -> &str { "06" }
 
   fn test1_result(&self) -> i64 { 5934 }
   fn test2_result(&self) -> i64 { 26984457539 }

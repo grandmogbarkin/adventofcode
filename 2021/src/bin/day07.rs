@@ -11,7 +11,7 @@ fn mean(numbers: &Vec<i64>) -> i64 {
 struct Solution { }
 
 impl SolutionT for Solution {
-  fn day(&self) -> &str { "7" }
+  fn day(&self) -> &str { "07" }
 
   fn test1_result(&self) -> i64 { 37 }
   fn test2_result(&self) -> i64 { 168 }

@@ -111,7 +111,7 @@ fn parse_input(filename: String, ignore_diags: bool) -> Result<i64, Box<dyn Erro
 struct Solution { }
 
 impl SolutionT for Solution {
-  fn day(&self) -> &str { "5" }
+  fn day(&self) -> &str { "05" }
 
   fn test1_result(&self) -> i64 { 5 }
   fn test2_result(&self) -> i64 { 12 }

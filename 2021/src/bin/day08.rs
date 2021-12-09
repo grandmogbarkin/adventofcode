@@ -13,7 +13,7 @@ fn sort_chars(s: String) -> String {
 struct Solution { }
 
 impl SolutionT for Solution {
-  fn day(&self) -> &str { "8" }
+  fn day(&self) -> &str { "08" }
 
   fn test1_result(&self) -> i64 { 26 }
   fn test2_result(&self) -> i64 { 61229 }
