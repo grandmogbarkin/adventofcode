@@ -16,18 +16,8 @@ impl SolutionT for Solution {
 
     let mut syntax_error_score: i64 = 0;
     for line in input.iter() {
-      let mut open_chunks: Vec<char> = vec![];
-      let chunks: Vec<char> = line.chars().collect();
-      for chunk in chunks.iter() {
-        match chunk {
-          '(' | '[' | '{' | '<' => open_chunks.push(*chunk),
-          ')' => if open_chunks.pop() != Some('(') { syntax_error_score += 3; break; },
-          ']' => if open_chunks.pop() != Some('[') { syntax_error_score += 57; break; },
-          '}' => if open_chunks.pop() != Some('{') { syntax_error_score += 1197; break; },
-          '>' => if open_chunks.pop() != Some('<') { syntax_error_score += 25137; break; },
-          _ => simple_error::bail!(format!("Invalid character: {}", chunk)),
-        }
-      }
+      let (score, _) = find_invalid_chunk(line)?;
+      syntax_error_score += score;
     }
     Ok(syntax_error_score)
   }
@@ -37,38 +27,48 @@ impl SolutionT for Solution {
 
     let mut completion_scores: Vec<i64> = vec![];
     for line in input.iter() {
-      let mut open_chunks: Vec<char> = vec![];
-      let chunks: Vec<char> = line.chars().collect();
-      let mut invalid: bool = false;
-      for chunk in chunks.iter() {
-        match chunk {
-          '(' | '[' | '{' | '<' => open_chunks.push(*chunk),
-          ')' => if open_chunks.pop() != Some('(') { invalid = true; break; },
-          ']' => if open_chunks.pop() != Some('[') { invalid = true; break; },
-          '}' => if open_chunks.pop() != Some('{') { invalid = true; break; },
-          '>' => if open_chunks.pop() != Some('<') { invalid = true; break; },
-          _ => simple_error::bail!(format!("Invalid character: {}", chunk)),
-        }
-      }
-      if invalid { continue; }
-      let mut score: i64 = 0;
+      let (syntax_error_score, open_chunks) = find_invalid_chunk(line)?;
+      if syntax_error_score > 0 { continue }
       // println!("Open chunks: {:?}", open_chunks);
+      let mut score: i64 = 0;
       for open_chunk in open_chunks.iter().rev() {
         match open_chunk {
-          '(' => { score *= 5; score += 1},
-          '[' => { score *= 5; score += 2},
-          '{' => { score *= 5; score += 3},
-          '<' => { score *= 5; score += 4},
+          '(' => { score *= 5; score += 1 },
+          '[' => { score *= 5; score += 2 },
+          '{' => { score *= 5; score += 3 },
+          '<' => { score *= 5; score += 4 },
           _ => simple_error::bail!(format!("Invalid open chunk: {}", open_chunk)),
         }
-        // println!("Running score: {}", score);
       }
       completion_scores.push(score);
     }
     println!("Found scores: {:?}", completion_scores);
+    if (completion_scores.len() % 2) == 0 {
+      simple_error::bail!(format!("Invalid number of completion scores: {}", completion_scores.len()));
+    }
     completion_scores.sort();
     Ok(completion_scores[(completion_scores.len() - 1) / 2])
   }
+}
+
+// A return value of > 0 means invalid chunks
+// A return value of 0 means valid. If open_chunks.len() > 0, then incomplete.
+fn find_invalid_chunk(line: &String) -> Result<(i64, Vec<char>), Box<dyn Error>> {
+  let mut score: i64 = 0;
+  let mut open_chunks: Vec<char> = vec![];
+  let chunks: Vec<char> = line.chars().collect();
+  for chunk in chunks.iter() {
+    match chunk {
+      '(' | '[' | '{' | '<' => open_chunks.push(*chunk),
+      ')' => if open_chunks.pop() != Some('(') { score = 3 },
+      ']' => if open_chunks.pop() != Some('[') { score = 57 },
+      '}' => if open_chunks.pop() != Some('{') { score = 1197 },
+      '>' => if open_chunks.pop() != Some('<') { score = 25137 },
+      _ => simple_error::bail!(format!("Invalid character: {}", chunk)),
+    }
+    if score > 0 { break; }
+  }
+  Ok((score, open_chunks))
 }
 
 pub fn main() {
