@@ -30,12 +30,21 @@ impl Exercise {
         }
     }
 
-    pub fn test1(solution: &dyn SolutionT, test_file_suffix: &str, test_result: i64) {
+    pub fn custom_test(
+        solution: &dyn SolutionT,
+        test_file_suffix: &str,
+        test1_result: i64,
+        test2_result: i64,
+    ) {
         let filename =
             format!("inputs/day{}/input{}.txt", solution.day(), test_file_suffix).to_string();
         let r1 = solution.task_1(filename.to_string());
         println!("Result for task 1: {:?}", r1);
         assert!(r1.is_ok());
-        assert_eq!(r1.unwrap(), test_result);
+        assert_eq!(r1.unwrap(), test1_result);
+        let r2 = solution.task_2(filename.to_string());
+        println!("Result for task 2: {:?}", r2);
+        assert!(r2.is_ok());
+        assert_eq!(r2.unwrap(), test2_result);
     }
 }

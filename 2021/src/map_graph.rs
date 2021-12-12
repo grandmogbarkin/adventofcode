@@ -23,4 +23,8 @@ impl Tree {
             .or_insert(HashSet::new());
         n2.insert(node1.to_string());
     }
+
+    pub fn get_nodes(&self, start_node: &String) -> Option<&HashSet<String>> {
+        self.nodes.get(start_node)
+    }
 }
