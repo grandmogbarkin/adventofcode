@@ -8,7 +8,7 @@ struct Solution { }
 impl SolutionT for Solution {
   fn day(&self) -> &str { "12" }
 
-  fn test1_result(&self) -> i64 { 1 }
+  fn test1_result(&self) -> i64 { 226 }
   fn test2_result(&self) -> i64 { 2 }
   
   fn task_1(&self, filename: String) -> Result<i64, Box<dyn Error>> {
@@ -39,5 +39,17 @@ mod tests {
   fn it_is_working() {
     let d = Solution {};
     Exercise::run(&d, true)
+  }
+  
+  #[test]
+  fn tiny_test() {
+    let d = Solution {};
+    Exercise::test1(&d, ".test.tiny", 10)
+  }
+  
+  #[test]
+  fn small_test() {
+    let d = Solution {};
+    Exercise::test1(&d, ".test.small", 19)
   }
 }
