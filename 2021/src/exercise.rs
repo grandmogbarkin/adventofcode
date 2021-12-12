@@ -17,7 +17,7 @@ impl Exercise {
         let test_str = if test { ".test" } else { "" };
         let filename = format!("inputs/day{}/input{}.txt", solution.day(), test_str).to_string();
         let r1 = solution.task_1(filename.to_string());
-        println!("Result for task 1: {:?}", r1);
+        println!("Result for task 1: {:?}\n\n", r1);
         if test {
             assert!(r1.is_ok());
             assert_eq!(r1.unwrap(), solution.test1_result());
@@ -39,7 +39,7 @@ impl Exercise {
         let filename =
             format!("inputs/day{}/input{}.txt", solution.day(), test_file_suffix).to_string();
         let r1 = solution.task_1(filename.to_string());
-        println!("Result for task 1: {:?}", r1);
+        println!("Result for task 1: {:?}\n\n", r1);
         assert!(r1.is_ok());
         assert_eq!(r1.unwrap(), test1_result);
         let r2 = solution.task_2(filename.to_string());
