@@ -1,4 +1,3 @@
-use std::collections::HashMap;
 use std::error::Error;
 
 use advent2021::exercise::{Exercise, SolutionT};
@@ -19,122 +18,85 @@ impl SolutionT for Solution {
     }
 
     fn task_1(&self, filename: String) -> Result<i64, Box<dyn Error>> {
-        let input = read::read_lines(filename)?;
-        let mut template: Vec<char> = input[0].chars().collect();
-
-        let mut rules: HashMap<String, char> = HashMap::new();
-        for i in 2..input.len() {
-            let mut input_split = input[i].split(" -> ");
-            rules.insert(
-                input_split.next().unwrap().to_string(),
-                input_split.next().unwrap().parse().unwrap(),
-            );
-        }
-
-        for _ in 0..10 {
-            let mut template_string = String::from(template[0]);
-            for i in 1..template.len() {
-                let key = format!("{}{}", template[i - 1], template[i]);
-                template_string.push(*rules.get(key.as_str()).unwrap());
-                template_string.push(template[i]);
-            }
-            template = template_string.chars().collect();
-            // println!("Step {}: {}", k, template_string);
-        }
-
-        let mut freq_map: HashMap<char, usize> = HashMap::new();
-        for polymer in template {
-            let counter = freq_map.entry(polymer).or_insert(0);
-            *counter += 1;
-        }
-
-        let max_freq = *freq_map
-            .iter()
-            .max_by(|a, b| a.1.cmp(&b.1))
-            .map(|(_k, v)| v)
-            .unwrap() as i64;
-        let min_freq = *freq_map
-            .iter()
-            .min_by(|a, b| a.1.cmp(&b.1))
-            .map(|(_k, v)| v)
-            .unwrap() as i64;
-
-        println!("{:?}", freq_map);
-        Ok(max_freq - min_freq)
+        run(filename, 10)
     }
 
     fn task_2(&self, filename: String) -> Result<i64, Box<dyn Error>> {
-        const N: usize = 26;
+        run(filename, 40)
+    }
+}
 
-        let input = read::read_lines(filename)?;
+fn run(filename: String, steps: usize) -> Result<i64, Box<dyn Error>> {
+    const N: usize = 26;
 
-        let template = input[0]
+    let input = read::read_lines(filename)?;
+
+    let template = input[0]
+        .bytes()
+        .map(|b| (b - b'A') as usize)
+        .collect::<Vec<_>>();
+
+    // let mut rules: HashMap<usize, usize> = HashMap::new();
+    let mut rules = [[0; N]; N];
+    for i in 2..input.len() {
+        let mut input_split = input[i].split(" -> ");
+        let key_in = input_split
+            .next()
+            .unwrap()
             .bytes()
             .map(|b| (b - b'A') as usize)
             .collect::<Vec<_>>();
+        let val = input_split
+            .next()
+            .unwrap()
+            .bytes()
+            .map(|b| (b - b'A') as usize)
+            .collect::<Vec<_>>()[0];
+        rules[key_in[0]][key_in[1]] = val;
+    }
 
-        // let mut rules: HashMap<usize, usize> = HashMap::new();
-        let mut rules = [[0; N]; N];
-        for i in 2..input.len() {
-            let mut input_split = input[i].split(" -> ");
-            let key_in = input_split
-                .next()
-                .unwrap()
-                .bytes()
-                .map(|b| (b - b'A') as usize)
-                .collect::<Vec<_>>();
-            let val = input_split
-                .next()
-                .unwrap()
-                .bytes()
-                .map(|b| (b - b'A') as usize)
-                .collect::<Vec<_>>()[0];
-            rules[key_in[0]][key_in[1]] = val;
-        }
+    // println!("{:?}", rules);
 
-        // println!("{:?}", rules);
+    let mut curr_template = [[0_usize; N]; N];
+    for i in 1..template.len() {
+        curr_template[template[i - 1]][template[i]] += 1;
+    }
 
-        let mut curr_template = [[0_usize; N]; N];
-        for i in 1..template.len() {
-            curr_template[template[i - 1]][template[i]] += 1;
-        }
-
-        for _ in 0..40 {
-            let mut next_template = [[0_usize; N]; N];
-            curr_template
-                .iter()
-                .flatten()
-                .enumerate()
-                .filter(|(_, &n)| n > 0)
-                .for_each(|(i, &n)| {
-                    let intermediate = rules[i / N][i % N];
-                    next_template[i / N][intermediate] += n;
-                    next_template[intermediate][i % N] += n;
-                });
-            curr_template = next_template;
-        }
-
-        let mut freq_map = [0_usize; N];
+    for _ in 0..steps {
+        let mut next_template = [[0_usize; N]; N];
         curr_template
             .iter()
             .flatten()
             .enumerate()
             .filter(|(_, &n)| n > 0)
-            .for_each(|(i, &x)| {
-                freq_map[i / N] += x;
-                freq_map[i % N] += x;
+            .for_each(|(i, &n)| {
+                let intermediate = rules[i / N][i % N];
+                next_template[i / N][intermediate] += n;
+                next_template[intermediate][i % N] += n;
             });
-
-        // first and last letters were not counted
-        freq_map[*template.first().unwrap()] += 1;
-        freq_map[*template.last().unwrap()] += 1;
-
-        let min_freq = freq_map.iter().filter(|&x| *x > 0).min().unwrap();
-        let max_freq = freq_map.iter().max().unwrap();
-
-        println!("{:?}", freq_map);
-        Ok((max_freq - min_freq) as i64 / 2)
+        curr_template = next_template;
     }
+
+    let mut freq_map = [0_usize; N];
+    curr_template
+        .iter()
+        .flatten()
+        .enumerate()
+        .filter(|(_, &n)| n > 0)
+        .for_each(|(i, &x)| {
+            freq_map[i / N] += x;
+            freq_map[i % N] += x;
+        });
+
+    // first and last letters were not counted
+    freq_map[*template.first().unwrap()] += 1;
+    freq_map[*template.last().unwrap()] += 1;
+
+    let min_freq = freq_map.iter().filter(|&x| *x > 0).min().unwrap();
+    let max_freq = freq_map.iter().max().unwrap();
+
+    println!("{:?}", freq_map);
+    Ok((max_freq - min_freq) as i64 / 2)
 }
 
 pub fn main() {
