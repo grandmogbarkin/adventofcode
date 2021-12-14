@@ -57,8 +57,8 @@ mod tests {
 
     #[test]
     fn it_is_working() {
-      let d = Solution {};
-      Exercise::run(&d, true)
+        let d = Solution {};
+        Exercise::run(&d, true)
     }
 
     #[test]
