@@ -11,7 +11,7 @@ impl SolutionT for Solution {
     }
 
     fn test1_result(&self) -> i64 {
-        1
+        31
     }
     fn test2_result(&self) -> i64 {
         2
@@ -45,5 +45,23 @@ mod tests {
     fn it_is_working() {
         let d = Solution {};
         Exercise::run(&d, true)
+    }
+    
+    #[test]
+    fn test1() {
+        let d = Solution {};
+        Exercise::custom_test(&d, ".test.1", 16, 2)
+    }
+    
+    #[test]
+    fn test2() {
+        let d = Solution {};
+        Exercise::custom_test(&d, ".test.2", 12, 2)
+    }
+    
+    #[test]
+    fn test3() {
+        let d = Solution {};
+        Exercise::custom_test(&d, ".test.3", 23, 2)
     }
 }
