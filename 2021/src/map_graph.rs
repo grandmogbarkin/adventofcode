@@ -7,6 +7,12 @@ pub struct Tree {
     pub cur_path: Vec<String>,
 }
 
+impl Default for Tree {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Tree {
     pub fn new() -> Self {
         Tree {
@@ -21,12 +27,12 @@ impl Tree {
         let n1 = self
             .nodes
             .entry(node1.to_string())
-            .or_insert(HashSet::new());
+            .or_insert_with(HashSet::new);
         n1.insert(node2.to_string());
         let n2 = self
             .nodes
             .entry(node2.to_string())
-            .or_insert(HashSet::new());
+            .or_insert_with(HashSet::new);
         n2.insert(node1.to_string());
     }
 
@@ -59,7 +65,7 @@ impl Tree {
                     continue;
                 }
                 let already_visited = self.visited.contains(&node);
-                if !already_visited || (visit_twice && visited_twice == "") {
+                if !already_visited || (visit_twice && visited_twice.is_empty()) {
                     self.dfs(node.clone(), visited_twice.clone(), visit_twice);
                 }
             }

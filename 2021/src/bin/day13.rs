@@ -25,10 +25,10 @@ impl SolutionT for Solution {
         let mut max_x: usize = 0;
         let mut max_y: usize = 0;
         for line in input.iter() {
-            if line == "" {
+            if line.is_empty() {
                 break;
             }
-            let coords: Vec<usize> = line.split(",").map(|s| s.parse().unwrap()).collect();
+            let coords: Vec<usize> = line.split(',').map(|s| s.parse().unwrap()).collect();
             if coords.len() != 2 {
                 simple_error::bail!(format!("Invalid coordinate input: {:?}", coords));
             }
@@ -48,7 +48,7 @@ impl SolutionT for Solution {
         // println!("Board: {:?}", board);
         let mut first_fold: String = "".to_string();
         for line in input.iter().rev() {
-            if line == "" {
+            if line.is_empty() {
                 break;
             }
             first_fold = line.split(" along ").collect::<Vec<&str>>()[1].to_string();
@@ -103,7 +103,7 @@ impl SolutionT for Solution {
             if line == "" {
                 break;
             }
-            let coords: Vec<usize> = line.split(",").map(|s| s.parse().unwrap()).collect();
+            let coords: Vec<usize> = line.split(',').map(|s| s.parse().unwrap()).collect();
             if coords.len() != 2 {
                 simple_error::bail!(format!("Invalid coordinate input: {:?}", coords));
             }
@@ -176,7 +176,7 @@ impl SolutionT for Solution {
                     eprint!(".")
                 }
             }
-            eprint!("\n");
+            eprintln!();
         }
         let mut dot_count: i64 = 0;
         let mut dot_sum: usize = 0;

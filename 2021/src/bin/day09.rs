@@ -55,9 +55,9 @@ impl SolutionT for Solution {
                     if min_basin >= cur_basin_size {
                         continue;
                     }
-                    for i in 0..basin_size.len() {
-                        if basin_size[i] == min_basin {
-                            basin_size[i] = cur_basin_size;
+                    for v in &mut basin_size {
+                        if *v == min_basin {
+                            *v = cur_basin_size;
                             break;
                         }
                     }

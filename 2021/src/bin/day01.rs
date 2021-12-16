@@ -20,7 +20,7 @@ impl SolutionT for Solution {
     fn task_1(&self, filename: String) -> Result<i64, Box<dyn Error>> {
         let depths = read::read_ints(filename)?;
 
-        println!("{} lines", depths.iter().count());
+        println!("{} lines", depths.len());
 
         let mut last: &i64 = &0;
         let mut count: i64 = -1;

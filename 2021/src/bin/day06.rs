@@ -19,7 +19,7 @@ impl SolutionT for Solution {
 
     fn task_1(&self, filename: String) -> Result<i64, Box<dyn Error>> {
         let input = read::read_lines(filename)?;
-        let mut ages: Vec<usize> = input[0].split(",").map(|s| s.parse().unwrap()).collect();
+        let mut ages: Vec<usize> = input[0].split(',').map(|s| s.parse().unwrap()).collect();
 
         for _i in 0..80 {
             let mut new_fish = 0;
@@ -39,7 +39,7 @@ impl SolutionT for Solution {
 
     fn task_2(&self, filename: String) -> Result<i64, Box<dyn Error>> {
         let input = read::read_lines(filename)?;
-        let ages: Vec<usize> = input[0].split(",").map(|s| s.parse().unwrap()).collect();
+        let ages: Vec<usize> = input[0].split(',').map(|s| s.parse().unwrap()).collect();
 
         let mut fish_by_day: [usize; 9] = [0; 9];
         for age in ages {

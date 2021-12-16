@@ -6,7 +6,7 @@ use advent2021::read;
 
 fn sort_chars(s: String) -> String {
     let mut v: Vec<char> = s.chars().collect();
-    v.sort();
+    v.sort_unstable();
     v.into_iter().collect::<String>()
 }
 

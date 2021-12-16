@@ -137,7 +137,7 @@ struct Solution {}
 /// * `boards` - Vector of game boards
 fn get_state(input: Vec<String>) -> (Vec<usize>, Vec<Board>) {
     let game: Vec<usize> = input[0]
-        .split(",")
+        .split(',')
         .map(|s| s.parse().unwrap())
         .collect::<Vec<usize>>();
     let mut boards: Vec<Board> = vec![];

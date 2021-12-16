@@ -1,3 +1,4 @@
+use std::cmp::Ordering;
 use std::error::Error;
 
 use advent2021::exercise::{Exercise, SolutionT};
@@ -70,15 +71,15 @@ impl SeaMap {
         self.diagram[y][x] += 1;
         while x != coords.x2 || y != coords.y2 {
             // Feels like there's a 1-liner way to do this that's clean and mathematical.
-            if coords.x2 > x {
-                x += 1;
-            } else if coords.x2 < x {
-                x -= 1;
+            match coords.x2.cmp(&x) {
+                Ordering::Greater => x += 1,
+                Ordering::Less => x -= 1,
+                Ordering::Equal => (),
             }
-            if coords.y2 > y {
-                y += 1;
-            } else if coords.y2 < y {
-                y -= 1;
+            match coords.y2.cmp(&y) {
+                Ordering::Greater => y += 1,
+                Ordering::Less => y -= 1,
+                Ordering::Equal => (),
             }
             self.diagram[y][x] += 1;
         }
@@ -110,7 +111,7 @@ fn parse_input(filename: String, ignore_diags: bool) -> Result<i64, Box<dyn Erro
         let mut coords: Vec<Vec<usize>> = vec![];
         for i in 0..s.len() {
             coords.push(
-                s[i].split(",")
+                s[i].split(',')
                     .map(|s| s.parse::<usize>().unwrap())
                     .collect(),
             );

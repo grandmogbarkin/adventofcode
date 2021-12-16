@@ -82,7 +82,7 @@ fn flash(octopuses: &mut Vec<Vec<usize>>, i: usize, j: usize) -> i64 {
         return 0;
     };
     octopuses[i][j] += 1; // About to fire the neighbors, make octopus 11.
-    let affected = get_affected(&octopuses, i, j);
+    let affected = get_affected(octopuses, i, j);
     for (x, y) in &affected {
         if octopuses[*x][*y] <= 9 {
             octopuses[*x][*y] += 1; // bring them up to 10
@@ -96,7 +96,7 @@ fn flash(octopuses: &mut Vec<Vec<usize>>, i: usize, j: usize) -> i64 {
     flashes
 }
 
-fn get_affected(octopuses: &Vec<Vec<usize>>, i: usize, j: usize) -> Vec<(usize, usize)> {
+fn get_affected(octopuses: &[Vec<usize>], i: usize, j: usize) -> Vec<(usize, usize)> {
     let mut affected: Vec<(usize, usize)> = vec![];
     let mut rows: Vec<usize> = vec![i];
     let mut cols: Vec<usize> = vec![j];

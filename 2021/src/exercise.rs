@@ -15,14 +15,14 @@ pub struct Exercise {}
 impl Exercise {
     pub fn run(solution: &dyn SolutionT, test: bool) {
         let test_str = if test { ".test" } else { "" };
-        let filename = format!("inputs/day{}/input{}.txt", solution.day(), test_str).to_string();
+        let filename = format!("inputs/day{}/input{}.txt", solution.day(), test_str);
         let r1 = solution.task_1(filename.to_string());
         println!("Result for task 1: {:?}\n\n", r1);
         if test {
             assert!(r1.is_ok());
             assert_eq!(r1.unwrap(), solution.test1_result());
         }
-        let r2 = solution.task_2(filename.to_string());
+        let r2 = solution.task_2(filename);
         println!("Result for task 2: {:?}", r2);
         if test {
             assert!(r2.is_ok());
@@ -37,12 +37,12 @@ impl Exercise {
         test2_result: i64,
     ) {
         let filename =
-            format!("inputs/day{}/input{}.txt", solution.day(), test_file_suffix).to_string();
+            format!("inputs/day{}/input{}.txt", solution.day(), test_file_suffix);
         let r1 = solution.task_1(filename.to_string());
         println!("Result for task 1: {:?}\n\n", r1);
         assert!(r1.is_ok());
         assert_eq!(r1.unwrap(), test1_result);
-        let r2 = solution.task_2(filename.to_string());
+        let r2 = solution.task_2(filename);
         println!("Result for task 2: {:?}", r2);
         assert!(r2.is_ok());
         assert_eq!(r2.unwrap(), test2_result);

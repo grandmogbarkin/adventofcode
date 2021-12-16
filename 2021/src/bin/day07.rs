@@ -3,7 +3,7 @@ use std::error::Error;
 use advent2021::exercise::{Exercise, SolutionT};
 use advent2021::read;
 
-fn mean(numbers: &Vec<i64>) -> i64 {
+fn mean(numbers: &[i64]) -> i64 {
     let sum = numbers.iter().sum::<i64>();
     (sum as f64 / numbers.len() as f64).round() as i64
 }
@@ -24,7 +24,7 @@ impl SolutionT for Solution {
 
     fn task_1(&self, filename: String) -> Result<i64, Box<dyn Error>> {
         let input = read::read_lines(filename)?;
-        let mut crabs: Vec<i64> = input[0].split(",").map(|s| s.parse().unwrap()).collect();
+        let mut crabs: Vec<i64> = input[0].split(',').map(|s| s.parse().unwrap()).collect();
 
         crabs.sort();
         let mid = crabs.len() / 2;
@@ -41,7 +41,7 @@ impl SolutionT for Solution {
 
     fn task_2(&self, filename: String) -> Result<i64, Box<dyn Error>> {
         let input = read::read_lines(filename)?;
-        let crabs: Vec<i64> = input[0].split(",").map(|s| s.parse().unwrap()).collect();
+        let crabs: Vec<i64> = input[0].split(',').map(|s| s.parse().unwrap()).collect();
 
         let avg: i64 = mean(&crabs);
 
