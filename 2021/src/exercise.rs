@@ -36,8 +36,7 @@ impl Exercise {
         test1_result: i64,
         test2_result: i64,
     ) {
-        let filename =
-            format!("inputs/day{}/input{}.txt", solution.day(), test_file_suffix);
+        let filename = format!("inputs/day{}/input{}.txt", solution.day(), test_file_suffix);
         let r1 = solution.task_1(filename.to_string());
         println!("Result for task 1: {:?}\n\n", r1);
         assert!(r1.is_ok());
