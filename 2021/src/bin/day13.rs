@@ -53,7 +53,7 @@ impl SolutionT for Solution {
             }
             first_fold = line.split(" along ").collect::<Vec<&str>>()[1].to_string();
         }
-        let mut fold_split = first_fold.split("=");
+        let mut fold_split = first_fold.split('=');
         let fold: (&str, usize) = (
             fold_split.next().unwrap(),
             fold_split.next().unwrap().parse().unwrap(),
@@ -100,7 +100,7 @@ impl SolutionT for Solution {
         let mut max_x: usize = 0;
         let mut max_y: usize = 0;
         for line in input.iter() {
-            if line == "" {
+            if line.is_empty() {
                 break;
             }
             let coords: Vec<usize> = line.split(',').map(|s| s.parse().unwrap()).collect();
@@ -122,11 +122,11 @@ impl SolutionT for Solution {
         }
         let mut folds: Vec<(String, usize)> = vec![];
         for line in input.iter().rev() {
-            if line == "" {
+            if line.is_empty() {
                 break;
             }
             let fold = line.split(" along ").collect::<Vec<&str>>()[1].to_string();
-            let mut fold_split = fold.split("=");
+            let mut fold_split = fold.split('=');
             folds.push((
                 fold_split.next().unwrap().to_string(),
                 fold_split.next().unwrap().parse().unwrap(),

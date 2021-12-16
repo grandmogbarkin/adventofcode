@@ -69,7 +69,7 @@ impl SolutionT for Solution {
                 completion_scores.len()
             ));
         }
-        completion_scores.sort();
+        completion_scores.sort_unstable();
         Ok(completion_scores[(completion_scores.len() - 1) / 2])
     }
 }

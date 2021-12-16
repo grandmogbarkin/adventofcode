@@ -26,10 +26,10 @@ impl SolutionT for Solution {
         let input = read::read_lines(filename)?;
         let mut crabs: Vec<i64> = input[0].split(',').map(|s| s.parse().unwrap()).collect();
 
-        crabs.sort();
+        crabs.sort_unstable();
         let mid = crabs.len() / 2;
         let median = if (crabs.len() % 2) == 0 {
-            mean(&vec![crabs[mid - 1], crabs[mid]])
+            mean(&[crabs[mid - 1], crabs[mid]])
         } else {
             crabs[mid]
         };

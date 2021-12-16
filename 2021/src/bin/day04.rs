@@ -80,7 +80,7 @@ impl Board {
                 return true;
             }
         }
-        return false;
+        false
     }
 
     /// Add up all undrawn numbers from this board
@@ -144,17 +144,17 @@ fn get_state(input: Vec<String>) -> (Vec<usize>, Vec<Board>) {
 
     let mut cur_board: [[u64; 5]; 5] = [[0; 5]; 5];
     let mut row = 0;
-    for i in 2..input.iter().count() {
-        if input[i] == "" {
+    for i in 2..input.len() {
+        if input[i].is_empty() {
             boards.push(Board::new(cur_board));
             cur_board = [[0; 5]; 5];
             row = 0;
             continue;
         }
-        let sp = input[i].split(" ");
+        let sp = input[i].split(' ');
         let mut col = 0;
         for s in sp {
-            if s == "" {
+            if s.is_empty() {
                 continue;
             }
             cur_board[row][col] = s.parse().unwrap();
@@ -217,18 +217,18 @@ impl SolutionT for Solution {
             live_game.add_number(i);
             // println!("Testing {}", i);
             // While there's more than 1 board left, remove any winning boards from the board set
-            if boards.iter().count() > 1 {
+            if boards.len() > 1 {
                 boards.retain(|board| {
                     if board.check(&live_game) {
                         // println!("Found a winner! {}", i);
                         return false;
                     }
-                    return true;
+                    true
                 });
             }
             // println!("Played: {}, boards left: {}", i, boards.iter().count());
             // Continue playing the last board until it wins
-            if boards.iter().count() == 1 && boards[0].check(&live_game) {
+            if boards.len() == 1 && boards[0].check(&live_game) {
                 println!("Found a winner! {}", i);
                 return Ok((boards[0].get_sum(&live_game) * i).try_into().unwrap());
             }

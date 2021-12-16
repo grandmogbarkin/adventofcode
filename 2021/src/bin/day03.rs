@@ -27,10 +27,10 @@ impl SolutionT for Solution {
         for i in (0..size).rev() {
             let mask = 1 << i;
             let ones = diagnostic.iter().filter(|&n| *n & mask != 0).count();
-            let zeroes = diagnostic.iter().count() - ones;
+            let zeroes = diagnostic.len() - ones;
 
-            gamma = gamma << 1;
-            epsilon = epsilon << 1;
+            gamma <<= 1;
+            epsilon <<= 1;
             if ones > zeroes {
                 gamma += 1;
             } else {
@@ -50,12 +50,12 @@ impl SolutionT for Solution {
 
         let mut oxygen = diagnostic.to_vec(); // make a copy
         for d in (0..size).rev() {
-            if oxygen.iter().count() == 1 {
+            if oxygen.len() == 1 {
                 break;
             }
             let mask = 1 << d;
             let ones = oxygen.iter().filter(|&n| *n & mask != 0).count();
-            let zeroes = oxygen.iter().count() - ones;
+            let zeroes = oxygen.len() - ones;
 
             if ones >= zeroes {
                 oxygen.retain(|x| x & mask != 0);
@@ -66,12 +66,12 @@ impl SolutionT for Solution {
 
         let mut co2 = diagnostic;
         for d in (0..size).rev() {
-            if co2.iter().count() == 1 {
+            if co2.len() == 1 {
                 break;
             }
             let mask = 1 << d;
             let ones = co2.iter().filter(|&n| *n & mask != 0).count();
-            let zeroes = co2.iter().count() - ones;
+            let zeroes = co2.len() - ones;
 
             // println!("Zeroes: {}, Ones: {}\nDict: {:?}",zeroes,ones,co2);
             if zeroes <= ones {

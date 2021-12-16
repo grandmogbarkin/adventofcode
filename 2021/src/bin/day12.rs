@@ -33,7 +33,7 @@ fn run(filename: String, visit_small_cave_twice: bool) -> Result<i64, Box<dyn Er
 
     let mut tree = map_graph::Tree::new();
     for line in input.iter() {
-        let pair: Vec<&str> = line.split("-").collect();
+        let pair: Vec<&str> = line.split('-').collect();
         if pair.len() != 2 {
             simple_error::bail!(format!("Invalid input: {:?}", pair));
         }

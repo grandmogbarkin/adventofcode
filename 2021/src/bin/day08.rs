@@ -31,7 +31,7 @@ impl SolutionT for Solution {
         let mut unique_segments: i64 = 0;
         for values in input.iter() {
             let parsed: Vec<&str> = values.split(" | ").collect();
-            let output: Vec<&str> = parsed[1].split(" ").collect();
+            let output: Vec<&str> = parsed[1].split(' ').collect();
             for d in output.iter() {
                 match d.len() {
                     2 | 3 | 4 | 7 => unique_segments += 1,
@@ -69,8 +69,8 @@ impl SolutionT for Solution {
             codes.resize(10, "".to_string());
 
             let parsed: Vec<&str> = values.split(" | ").collect();
-            let input: Vec<&str> = parsed[0].split(" ").collect();
-            let output: Vec<&str> = parsed[1].split(" ").collect();
+            let input: Vec<&str> = parsed[0].split(' ').collect();
+            let output: Vec<&str> = parsed[1].split(' ').collect();
             // 1->2, 4->4, 7->3, 8->7
             for d in input.iter() {
                 match d.len() {
@@ -113,7 +113,7 @@ impl SolutionT for Solution {
                 let input_segments: HashSet<char> = d.chars().collect();
                 if one_segments.is_subset(&input_segments) {
                     codes[3] = sort_chars(d.to_string());
-                } else if input_segments.contains(&cc_segment) {
+                } else if input_segments.contains(cc_segment) {
                     codes[2] = sort_chars(d.to_string());
                 } else {
                     codes[5] = sort_chars(d.to_string());
