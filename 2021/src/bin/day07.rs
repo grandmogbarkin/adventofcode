@@ -57,7 +57,7 @@ impl SolutionT for Solution {
     }
 }
 
-fn sum_fuel_series(crabs: &Vec<i64>, mid: i64) -> i64 {
+fn sum_fuel_series(crabs: &[i64], mid: i64) -> i64 {
     crabs
         .iter()
         .map(|c| {

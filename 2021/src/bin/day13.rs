@@ -74,9 +74,9 @@ impl SolutionT for Solution {
             "x" => {
                 let mut offset = (max_x - 1 - fold.1) * 2;
                 for x in (fold.1 + 1..max_x).rev() {
-                    for y in 0..max_y {
-                        board[y][x - offset] |= board[y][x];
-                        board[y][x] = false;
+                    for b in board.iter_mut().take(max_y) {
+                        b[x - offset] |= b[x];
+                        b[x] = false;
                     }
                     offset -= 2;
                 }
@@ -154,14 +154,14 @@ impl SolutionT for Solution {
                     let mut offset = (max_x - 1 - fold.1) * 2;
                     // println!("max x: {}, x fold: {}, {}", max_x, fold.1, offset);
                     for x in (fold.1 + 1..max_x).rev() {
-                        for y in 0..max_y {
-                            board[y][x - offset] |= board[y][x];
-                            board[y][x] = false;
+                        for b in board.iter_mut().take(max_y) {
+                            b[x - offset] |= b[x];
+                            b[x] = false;
                         }
                         offset -= 2;
                     }
-                    for y in 0..max_y {
-                        board[y].truncate(fold.1);
+                    for b in board.iter_mut().take(max_y) {
+                        b.truncate(fold.1);
                     }
                     max_x = fold.1;
                 }

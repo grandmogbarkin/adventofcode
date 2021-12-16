@@ -72,7 +72,7 @@ impl SolutionT for Solution {
     }
 }
 
-fn build_heightmap(input: &Vec<String>) -> Vec<Vec<i64>> {
+fn build_heightmap(input: &[String]) -> Vec<Vec<i64>> {
     let mut heightmap: Vec<Vec<i64>> = vec![];
     const RADIX: u32 = 10;
     for line in input.iter() {
@@ -85,7 +85,7 @@ fn build_heightmap(input: &Vec<String>) -> Vec<Vec<i64>> {
     heightmap
 }
 
-fn is_low_point(heightmap: &Vec<Vec<i64>>, i: usize, j: usize) -> bool {
+fn is_low_point(heightmap: &[Vec<i64>], i: usize, j: usize) -> bool {
     let mut min_point = 9;
 
     // Check every neighbor, see if we're the lowest point

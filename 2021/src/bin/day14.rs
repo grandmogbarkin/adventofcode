@@ -38,8 +38,8 @@ fn run(filename: String, steps: usize) -> Result<i64, Box<dyn Error>> {
 
     // let mut rules: HashMap<usize, usize> = HashMap::new();
     let mut rules = [[0; N]; N];
-    for i in 2..input.len() {
-        let mut input_split = input[i].split(" -> ");
+    for i in input.iter().skip(2) {
+        let mut input_split = i.split(" -> ");
         let key_in = input_split
             .next()
             .unwrap()

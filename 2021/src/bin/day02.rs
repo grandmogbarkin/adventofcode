@@ -28,7 +28,7 @@ impl SolutionT for Solution {
             match &split[..] {
                 [direction, n] => {
                     let distance: i64 = n.parse().unwrap();
-                    match direction.clone() {
+                    match *direction {
                         "forward" => {
                             horizontal += distance;
                         }
@@ -66,7 +66,7 @@ impl SolutionT for Solution {
             match &split[..] {
                 [direction, n] => {
                     let distance: i64 = n.parse().unwrap();
-                    match direction.clone() {
+                    match *direction {
                         "forward" => {
                             horizontal += distance;
                             depth += distance * aim;

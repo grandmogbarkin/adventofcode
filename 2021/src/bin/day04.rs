@@ -53,10 +53,10 @@ impl Board {
             rows: [0_u128; 5],
             columns: [0_u128; 5],
         };
-        for r in 0..5 {
-            for c in 0..5 {
-                board.rows[r] |= 1 << b[r][c];
-                board.columns[c] |= 1 << b[r][c];
+        for (r, row) in b.iter().enumerate() {
+            for (c, cell) in row.iter().enumerate() {
+                board.rows[r] |= 1 << cell;
+                board.columns[c] |= 1 << cell;
             }
         }
         board
@@ -144,14 +144,14 @@ fn get_state(input: Vec<String>) -> (Vec<usize>, Vec<Board>) {
 
     let mut cur_board: [[u64; 5]; 5] = [[0; 5]; 5];
     let mut row = 0;
-    for i in 2..input.len() {
-        if input[i].is_empty() {
+    for line in input.iter().skip(2) {
+        if line.is_empty() {
             boards.push(Board::new(cur_board));
             cur_board = [[0; 5]; 5];
             row = 0;
             continue;
         }
-        let sp = input[i].split(' ');
+        let sp = line.split(' ');
         let mut col = 0;
         for s in sp {
             if s.is_empty() {

@@ -76,7 +76,7 @@ impl SolutionT for Solution {
 
 // A return value of > 0 means invalid chunks
 // A return value of 0 means valid. If open_chunks.len() > 0, then incomplete.
-fn find_invalid_chunk(line: &String) -> Result<(i64, Vec<char>), Box<dyn Error>> {
+fn find_invalid_chunk(line: &str) -> Result<(i64, Vec<char>), Box<dyn Error>> {
     let mut score: i64 = 0;
     let mut open_chunks: Vec<char> = vec![];
     let chunks: Vec<char> = line.chars().collect();

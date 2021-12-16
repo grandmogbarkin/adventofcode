@@ -57,7 +57,7 @@ fn run(filename: String, multiplier: usize) -> Result<i64, Box<dyn Error>> {
     // }
     // println!("{:?}", cave);
     // println!("{:?}", full_cave);
-    
+
     let goal: Pos = Pos(full_dim - 1, full_dim - 1);
     println!("{:?}", goal);
     let result = astar(
@@ -74,7 +74,7 @@ fn run(filename: String, multiplier: usize) -> Result<i64, Box<dyn Error>> {
 struct Pos(usize, usize);
 
 impl Pos {
-    fn neighbours(&self, cave: &Vec<Vec<usize>>, full_dim: usize) -> Vec<(Pos, usize)> {
+    fn neighbours(&self, cave: &[Vec<usize>], full_dim: usize) -> Vec<(Pos, usize)> {
         let &Pos(x, y) = self;
         let mut out: Vec<Pos> = vec![];
         if x > 0 {
@@ -89,8 +89,7 @@ impl Pos {
         if y + 1 < full_dim {
             out.push(Pos(x, y + 1));
         }
-        let res = out
-            .into_iter()
+        out.into_iter()
             .map(|p| {
                 let max_dim = cave.len();
                 let full_pos = Pos(p.0 % max_dim, p.1 % max_dim);
@@ -98,9 +97,9 @@ impl Pos {
                 let v = cave[full_pos.0][full_pos.1] + val_offset;
                 (p, ((v - 1) % 9) + 1)
             })
-            .collect();
+            .collect()
         // println!("{:?}: {:?}", self, res);
-        res
+        // res
     }
 }
 

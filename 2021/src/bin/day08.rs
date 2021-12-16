@@ -121,8 +121,8 @@ impl SolutionT for Solution {
             }
 
             let mut decoded = HashMap::new();
-            for i in 0..codes.len() {
-                decoded.insert(&codes[i], i);
+            for (i, v) in codes.iter().enumerate() {
+                decoded.insert(v, i);
             }
             // println!("Decoded: {:?}", decoded);
 
