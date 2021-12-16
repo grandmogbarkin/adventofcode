@@ -8,4 +8,4 @@ default-run = "day00"
 
 [dependencies]
 simple-error = "0.2.3"
-pathfinding = "0.5.3"
+pathfinding = "3.0.5"

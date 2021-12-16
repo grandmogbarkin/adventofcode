@@ -1,4 +1,4 @@
-use pathfinding::astar;
+use pathfinding::prelude::astar;
 use std::error::Error;
 
 use advent2021::exercise::{Exercise, SolutionT};
