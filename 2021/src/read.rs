@@ -11,6 +11,12 @@ pub fn read_ints(filename: String) -> Result<Vec<i64>, Error> {
     Ok(v)
 }
 
+pub fn parse_hex(input: &str) -> Vec<u8> {
+    let out = hex::decode(input);
+    assert!(out.is_ok());
+    out.unwrap()
+}
+
 pub fn read_binary(filename: String) -> Result<Vec<i64>, Error> {
     let io = fs::File::open(filename)?;
     let br = BufReader::new(io);
