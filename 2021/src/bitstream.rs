@@ -21,9 +21,7 @@ impl BitStream {
     }
 
     pub fn read_bits(&mut self, len: usize) -> u16 {
-        self.by_ref()
-            .take(len)
-            .fold(0, |res, b| (res << 1) + b)
+        self.by_ref().take(len).fold(0, |res, b| (res << 1) + b)
     }
 }
 
