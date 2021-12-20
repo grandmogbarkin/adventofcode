@@ -40,7 +40,7 @@ impl SolutionT for Solution {
             }
 
             image = out;
-            println!("{:?}", image);
+            // println!("{:?}", image);
         }
         
         Ok(image.iter().flatten().sum::<usize>() as i64)
@@ -57,6 +57,7 @@ impl SolutionT for Solution {
 fn process(algo: &Vec<usize>, image: &Vec<Vec<usize>>, i: usize, j: usize) -> usize {
     let mut index: usize = 0;
     let max_dim = image.len() as i32;
+    // 0,0 in out centers on -1, -1 of the image, so offset the 9 cells by -1.
     for (di, dj) in [
         (-2, -2),
         (-2, -1),
@@ -66,7 +67,7 @@ fn process(algo: &Vec<usize>, image: &Vec<Vec<usize>>, i: usize, j: usize) -> us
         (-1, 0),
         (0, -2),
         (0, -1),
-        (0, 0),
+        (0, 0)
     ] {
         index <<= 1;
         let x = i as i32 + di;
@@ -76,7 +77,7 @@ fn process(algo: &Vec<usize>, image: &Vec<Vec<usize>>, i: usize, j: usize) -> us
         }
         index |= image[x as usize][y as usize] as usize;
     }
-    println!("{}: {}", index, algo[index]);
+    // println!("{}: {}", index, algo[index]);
     algo[index]
 }
 
