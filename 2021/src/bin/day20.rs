@@ -14,49 +14,55 @@ impl SolutionT for Solution {
         35
     }
     fn test2_result(&self) -> i64 {
-        2
+        3351
     }
 
     fn task_1(&self, filename: String) -> Result<i64, Box<dyn Error>> {
-        let input = read::read_lines(filename)?;
-
-        // b'#' = 35 = 0b100011, b'.' = 46 = 0b101110
-        let algo = input[0].bytes().map(|b| (b & 1) as usize).collect::<Vec<_>>();
-
-        let mut image: Vec<Vec<usize>> = vec![];
-        for line in input.iter().skip(2) {
-            image.push(line.bytes().map(|b| (b & 1) as usize).collect::<Vec<_>>());
-        }
-        
-        // println!("{:?}", image);
-
-        for _step in 0..2 {
-            let out_dim: usize = image.len() + 2;
-            let mut out: Vec<Vec<usize>> = vec![vec![0; out_dim]; out_dim];
-            for (i, row) in out.iter_mut().enumerate() {
-                for (j, c) in row.iter_mut().enumerate() {
-                    *c = process(&algo, &image, i, j);
-                }
-            }
-
-            image = out;
-            // println!("{:?}", image);
-        }
-        
-        Ok(image.iter().flatten().sum::<usize>() as i64)
+        run(filename, 2)
     }
 
     fn task_2(&self, filename: String) -> Result<i64, Box<dyn Error>> {
-        let _test = read::read_lines(filename)?;
-
-        println!("Hello 2!");
-        Ok(2)
+        run(filename, 50)
     }
 }
 
-fn process(algo: &Vec<usize>, image: &Vec<Vec<usize>>, i: usize, j: usize) -> usize {
+fn run(filename: String, steps: usize) -> Result<i64, Box<dyn Error>> {
+    let input = read::read_lines(filename)?;
+
+    // b'#' = 35 = 0b100011, b'.' = 46 = 0b101110
+    let algo = input[0]
+        .bytes()
+        .map(|b| (b & 1) as usize)
+        .collect::<Vec<_>>();
+
+    let mut image: Vec<Vec<usize>> = vec![];
+    for line in input.iter().skip(2) {
+        image.push(line.bytes().map(|b| (b & 1) as usize).collect::<Vec<_>>());
+    }
+
+    // println!("{:?}", image);
+    for step in 0..steps {
+        let out_dim: usize = image.len() + 2;
+        let mut out: Vec<Vec<usize>> = vec![vec![0; out_dim]; out_dim];
+        for (i, row) in out.iter_mut().enumerate() {
+            for (j, c) in row.iter_mut().enumerate() {
+                *c = process(step, &algo, &image, i, j);
+            }
+        }
+
+        image = out;
+        // println!("{:?}", image);
+    }
+
+    Ok(image.iter().flatten().sum::<usize>() as i64)
+}
+fn process(step: usize, algo: &Vec<usize>, image: &Vec<Vec<usize>>, i: usize, j: usize) -> usize {
     let mut index: usize = 0;
     let max_dim = image.len() as i32;
+    let mut toggle: usize = 0;
+    if algo[0] == 1 && (step % 2) == 1 {
+        toggle = 1; // 0b111
+    }
     // 0,0 in out centers on -1, -1 of the image, so offset the 9 cells by -1.
     for (di, dj) in [
         (-2, -2),
@@ -67,12 +73,13 @@ fn process(algo: &Vec<usize>, image: &Vec<Vec<usize>>, i: usize, j: usize) -> us
         (-1, 0),
         (0, -2),
         (0, -1),
-        (0, 0)
+        (0, 0),
     ] {
         index <<= 1;
         let x = i as i32 + di;
         let y = j as i32 + dj;
         if x < 0 || y < 0 || x >= max_dim || y >= max_dim {
+            index |= toggle;
             continue;
         }
         index |= image[x as usize][y as usize] as usize;
