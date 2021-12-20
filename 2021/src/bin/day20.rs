@@ -56,12 +56,18 @@ fn run(filename: String, steps: usize) -> Result<i64, Box<dyn Error>> {
 
     Ok(image.iter().flatten().sum::<usize>() as i64)
 }
-fn process(step: usize, algo: &Vec<usize>, image: &Vec<Vec<usize>>, i: usize, j: usize) -> usize {
+fn process(step: usize, algo: &[usize], image: &[Vec<usize>], i: usize, j: usize) -> usize {
     let mut index: usize = 0;
     let max_dim = image.len() as i32;
+    // If the first bit of our algo is a 1, then on every odd step, all the "off" bits in our
+    //   infinite image will become "on". So pretend they're on.
+    // This exercise doesn't make sense in this case if the last bit of the algo is a 1, or if
+    //   we're doing an odd number of steps, as the number of "on" bits will be infinite. So
+    //   we assume that there's an even number of steps, and that the last bit is off, which it
+    //   happens to be in our input.
     let mut toggle: usize = 0;
     if algo[0] == 1 && (step % 2) == 1 {
-        toggle = 1; // 0b111
+        toggle = 1;
     }
     // 0,0 in out centers on -1, -1 of the image, so offset the 9 cells by -1.
     for (di, dj) in [
