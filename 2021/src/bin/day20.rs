@@ -56,6 +56,7 @@ fn run(filename: String, steps: usize) -> Result<i64, Box<dyn Error>> {
 
     Ok(image.iter().flatten().sum::<usize>() as i64)
 }
+
 fn process(step: usize, algo: &[usize], image: &[Vec<usize>], i: usize, j: usize) -> usize {
     let mut index: usize = 0;
     let max_dim = image.len() as i32;
