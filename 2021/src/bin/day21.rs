@@ -62,24 +62,25 @@ impl SolutionT for Solution {
         let cap1 = re.captures(&input[0]).unwrap();
         let cap2 = re.captures(&input[1]).unwrap();
 
-        let pos_score: [(u64, u64); 2] = [
-            (cap1[2].parse::<u64>().unwrap(), 0),
-            (cap2[2].parse::<u64>().unwrap(), 0),
+        let pos_score: [(u128, u128); 2] = [
+            (cap1[2].parse::<u128>().unwrap(), 0),
+            (cap2[2].parse::<u128>().unwrap(), 0),
         ];
 
-        println!("{}, {}", pos_score[0].0, pos_score[0].1);
         let (p1_wins, p2_wins) = play_part_2(pos_score);
+        println!("1: {} 2: {}", p1_wins, p2_wins);
         Ok(std::cmp::max(p1_wins, p2_wins) as i64)
     }
 }
 
 #[cached]
-fn play_part_2(pos_score: [(u64, u64); 2]) -> (u64, u64) {
+fn play_part_2(pos_score: [(u128, u128); 2]) -> (u128, u128) {
     // We only advance the player in position 2, swap the players on each call.
+    // max score of 56 before u128 overflow
     if pos_score[1].1 >= 21 {
         return (0, 1);
     }
-    const DIE_SUMS: [u64; 27] = [
+    const DIE_SUMS: [u128; 27] = [
         3, 4, 4, 4, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 8, 8, 8, 9,
     ];
     let mut p1_total_wins = 0;
