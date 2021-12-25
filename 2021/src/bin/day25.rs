@@ -40,7 +40,6 @@ impl SeaBed {
     }
 
     pub fn step(&mut self) -> i64 {
-        // println!("{:?}", self.floor);
         let mut moves = 0;
 
         let mut floor_new = self.floor.clone();
@@ -98,13 +97,9 @@ impl SolutionT for Solution {
 
         let mut bed = SeaBed::new();
 
-        // println!("{:?}", bed);
-
         for line in input {
             bed.add_row(&line);
         }
-
-        // println!("{:?}", bed);
 
         let mut steps = 0;
         while bed.step() > 0 {
