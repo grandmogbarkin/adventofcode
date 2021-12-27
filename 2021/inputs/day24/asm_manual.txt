@@ -1,244 +1,262 @@
-1   inp w  
+[w4 = w3 + 8]
+[w7 = w6 - 2]
+[w9 = w8+7]
+[w10 = w5]
+[w11 = w2 - 5]
+[w12=w1+2]
+[w13=w0-4]
+
+Max:
+w0=9 w1=7 w2=9 w3=1 w4=9 w5=9 w6=9 w7=7 w8=2 w9=9 w10=9 w11=4 w12=9 w13=5
+97919997299495
+
+Min:
+w0=5 w1=1 w2=6 w4=1 w3=9 w5=1 w6=3 w7=1 w8=1 w9=8 w10=1 w11=1 w12=3 w13=1
+51619131181131
+
+
+
+1   inp w    [w0]
     mul x 0  
     add x z  
     mod x 26  
     div z 1  
-    add x 12  
+    add x 12  [x=12]
     eql x w  
-    eql x 0  
+    eql x 0  [x=1]
     mul y 0  
     add y 25  
     mul y x  
-    add y 1  
-    mul z y  
+    add y 1  [y=26]
+    mul z y  [z=0]
     mul y 0  
     add y w  
     add y 7  
-    mul y x  
-    add z y  
-2   inp w  
+    mul y x  [y=w0+7]
+    add z y  [z = w0 + 7]
+2   inp w    [w1]
     mul x 0  
     add x z  
-    mod x 26   
+    mod x 26   [x = w0 + 7]
     div z 1    
-    add x 12   
+    add x 12   [x = w0 + 19]
     eql x w  
-    eql x 0    
+    eql x 0    [x = 1]
     mul y 0  
     add y 25  
     mul y x  
-    add y 1    
-    mul z y    
+    add y 1    [y = 26]
+    mul z y    [z = 1*26w0 + 7*26]
     mul y 0  
     add y w    
     add y 8  
-    mul y x  
-    add z y    
-3   inp w  
+    mul y x  [y=  w1 + 8]
+    add z y    [z = 1*26w0 + w1 + 7*26 + 8]
+3   inp w    [w2]
     mul x 0  
     add x z  
-    mod x 26   
-    div z 1  
-    add x 13  
+    mod x 26   [x = w1 + 8]
+    div z 1  [z = 1*26w0 + w1 + 7*26 + 8]
+    add x 13  [x = w1 + 21]
     eql x w  
-    eql x 0  
+    eql x 0  [x=1]
     mul y 0  
     add y 25  
     mul y x  
-    add y 1  
-    mul z y  
+    add y 1  [y = 26]
+    mul z y  [z = 2*26w0 + 1*26w1 + 7*26*26 + 8*26]
     mul y 0  
     add y w  
     add y 2  
-    mul y x  
-    add z y  
-4   inp w  
+    mul y x  [y= w2 + 2]
+    add z y  [z = 2*26w0 + 1*26w1 + w2 + 7*26*26 + 8*26 + 2]
+4   inp w    [w3]
     mul x 0  
     add x z  
-    mod x 26   
+    mod x 26 [x = w2 + 2]  
     div z 1  
-    add x 12  
+    add x 12  [x = w2 + 14]
     eql x w  
-    eql x 0  
+    eql x 0  [x = 1]
     mul y 0  
     add y 25  
     mul y x  
-    add y 1  
-    mul z y  
+    add y 1  [y = 26]
+    mul z y  [z = 3*26w0 + 2*26w1 + 1*26w2 + 7*26*26*26 + 8*26*26 + 2*26]
     mul y 0  
     add y w  
     add y 11  
-    mul y x  
-    add z y  
-5   inp w  
+    mul y x  [y = w3 + 11]
+    add z y  [z = 3*26w0 + 2*26w1 + 1*26w2 + w3 + 7*26*26*26 + 8*26*26 + 2*26 + 11]
+5   inp w    [w4]
     mul x 0  
     add x z  
-    mod x 26   
-    div z 26   
-    add x -3   
-    eql x w    
-    eql x 0    
+    mod x 26 [x = w3 + 11]  
+    div z 26   [z = 2*26w0 + 1*26w1 + w2 + 7*26*26 + 8*26 + 2]
+    add x -3   [x = w3 + 8]
+    eql x w    [w4 = w3 + 8] // SOLN 3, 4
+    eql x 0    [x = 0]
     mul y 0  
     add y 25  
     mul y x  
-    add y 1  
-    mul z y  
+    add y 1  [y = 1]
+    mul z y  [z = 2*26w0 + 1*26w1 + w2 + 7*26*26 + 8*26 + 2]
     mul y 0  
     add y w  
     add y 6  
-    mul y x  
-    add z y  
-6   inp w  
+    mul y x  [y = 0]
+    add z y  [z = 2*26w0 + 1*26w1 + w2 + 7*26*26 + 8*26 + 2]
+6   inp w    [w5]
     mul x 0  
     add x z  
-    mod x 26   
+    mod x 26   [x = w2 + 2]
     div z 1  
-    add x 10   
+    add x 10   [x = w2 + 12]
     eql x w   
     eql x 0  
     mul y 0  
     add y 25  
     mul y x  
-    add y 1  
-    mul z y  
+    add y 1  [y = 26]
+    mul z y  [z = 3*26w0 + 2*26w1 + 1*26w2 + 7*3*26 + 8*2*26 + 2*1*26]
     mul y 0  
     add y w   
     add y 12   
-    mul y x  
-    add z y  
-7   inp w  
+    mul y x  [y = w5 + 12]
+    add z y  [z = 3*26w0 + 2*26w1 + 1*26w2 + w5 + 7*3*26 + 8*2*26 + 2*1*26 + 12]
+7   inp w    [w6]
     mul x 0  
     add x z  
-    mod x 26   
+    mod x 26   [x = w5 + 12]
     div z 1  
-    add x 14   
+    add x 14   [x = w5 + 26]
     eql x w  
-    eql x 0  
+    eql x 0  [x = 1]
     mul y 0  
     add y 25  
     mul y x  
-    add y 1  
-    mul z y  
+    add y 1  [y = 26]
+    mul z y  [z = 4*26w0 + 3*26w1 + 2*26w2 + 1*26w5 + 7*4*26 + 8*3*26 + 2*2*26 + 12*1*26]
     mul y 0  
     add y w  
     add y 14  
-    mul y x  
-    add z y  
-8   inp w  
+    mul y x  [y = w6 + 14]
+    add z y  [z = 4*26w0 + 3*26w1 + 2*26w2 + 1*26w5 + w6 + 7*4*26 + 8*3*26 + 2*2*26 + 12*1*26 + 14]
+8   inp w    [w7]
     mul x 0  
     add x z  
-    mod x 26   
-    div z 26   
-    add x -16  
-    eql x w  
-    eql x 0  
+    mod x 26   [x = w6 + 14]
+    div z 26   [z = 3*26w0 + 2*26w1 + 1*26w2 + w5 + 7*3*26 + 8*2*26 + 2*1*26 + 12]
+    add x -16  [x = w6 - 2]
+    eql x w    [w7 = w6 - 2] // SOLN 6, 7
+    eql x 0  [x = 0]
     mul y 0  
     add y 25  
     mul y x  
-    add y 1  
+    add y 1  [y = 1]
     mul z y  
     mul y 0  
     add y w  
     add y 13  
-    mul y x  
-    add z y  
-9   inp w  
+    mul y x  [y = 0]
+    add z y  [z = 3*26w0 + 2*26w1 + 1*26w2 + w5 + 7*3*26 + 8*2*26 + 2*1*26 + 12]
+9   inp w    [w8]
     mul x 0  
     add x z  
-    mod x 26  
+    mod x 26 [x = w5 + 12] 
     div z 1  
-    add x 12  
+    add x 12  [x = w5 + 24]
     eql x w  
-    eql x 0  
+    eql x 0  [x = 1]
     mul y 0  
     add y 25  
     mul y x  
-    add y 1  
-    mul z y  
+    add y 1  [y = 26]
+    mul z y  [z = 4*26w0 + 3*26w1 + 2*26w2 + 1*26w5 + 7*4*26 + 8*3*26 + 2*2*26 + 12*1*26]
     mul y 0  
     add y w  
     add y 15  
-    mul y x  
-    add z y  
-10  inp w  
+    mul y x  [y = w8 + 15]
+    add z y  [z = 4*26w0 + 3*26w1 + 2*26w2 + 1*26w5 + w8 + 7*4*26 + 8*3*26 + 2*2*26 + 12*1*26 + 15]
+10  inp w    [w9]
     mul x 0  
     add x z  
-    mod x 26   
-    div z 26   
-    add x -8   
-    eql x w  
-    eql x 0  
+    mod x 26 [x = w8 + 15]  
+    div z 26   [z = 3*26w0 + 2*26w1 + 1*26w2 + w5 + 7*3*26 + 8*2*26 + 2*1*26 + 12]
+    add x -8   [x = w8 + 7]
+    eql x w  [w9 = w8+7] // SOLN 8,9
+    eql x 0  [x=0]
     mul y 0  
     add y 25  
     mul y x  
-    add y 1  
+    add y 1  [y=1]
     mul z y  
     mul y 0  
     add y w  
     add y 10  
-    mul y x  
-    add z y  
-11  inp w  
+    mul y x  [y=0]
+    add z y  [z = 3*26w0 + 2*26w1 + 1*26w2 + w5 + 7*3*26 + 8*2*26 + 2*1*26 + 12]
+11  inp w    [w10]
     mul x 0  
     add x z  
-    mod x 26   
-    div z 26   
-    add x -12  
-    eql x w  
-    eql x 0  
+    mod x 26   [x = w5 + 12]
+    div z 26   [z = 2*26w0 + 1*26w1 + w2 + 7*2*26 + 8*1*26 + 2]
+    add x -12  [x = w5]
+    eql x w  [w10 = w5] // SOLN 5,10
+    eql x 0  [x=0]
     mul y 0  
     add y 25  
     mul y x  
-    add y 1  
+    add y 1  [y=1]
     mul z y  
     mul y 0  
     add y w  
     add y 6  
-    mul y x  
-    add z y  
-12  inp w  
+    mul y x  [y=0]
+    add z y  [z = 2*26w0 + 1*26w1 + w2 + 7*2*26 + 8*1*26 + 2]
+12  inp w    [w11]
     mul x 0  
     add x z  
-    mod x 26   
-    div z 26   
-    add x -7   
-    eql x w  
-    eql x 0  
+    mod x 26   [x = w2 + 2]
+    div z 26   [z = 1*26w0 + w1 + 7*1*26 + 8]
+    add x -7   [x = w2 - 5]
+    eql x w  [w11 = w2 - 5] // SOLN 2,11
+    eql x 0  [x=0]
     mul y 0  
     add y 25  
     mul y x  
-    add y 1  
+    add y 1  [y=1]
     mul z y  
     mul y 0  
     add y w  
     add y 10  
-    mul y x  
-    add z y  
-13  inp w  
+    mul y x  [y=0]
+    add z y  [z = 1*26w0 + w1 + 7*1*26 + 8]
+13  inp w    [w12]
     mul x 0  
     add x z  
-    mod x 26   
-    div z 26   
-    add x -6   
-    eql x w  
-    eql x 0  
+    mod x 26   [x = w1 + 8]
+    div z 26   [z = w0 + 7]
+    add x -6   [x = w1 + 2]
+    eql x w  [w12=w1+2] // SOLN 1,12
+    eql x 0  [x=0]
     mul y 0  
     add y 25  
     mul y x  
-    add y 1  
+    add y 1  [y=1]
     mul z y  
     mul y 0  
     add y w  
     add y 8  
-    mul y x  
-    add z y  
-14  inp w  
+    mul y x  [y=0]
+    add z y  [z = w0 + 7]
+14  inp w    [w13]
     mul x 0  
     add x z  
-    mod x 26   
-    div z 26   
-    add x -11  
-    eql x w  
+    mod x 26   [x = w0 + 7]
+    div z 26   [z=0]
+    add x -11  [x = w0 -4]
+    eql x w  [w13=w0-4] // SOLN 0,13
     eql x 0  
     mul y 0  
     add y 25  
@@ -249,4 +267,4 @@
     add y w  
     add y 5  
     mul y x  
-    add z y  
+    add z y  [z=0]
