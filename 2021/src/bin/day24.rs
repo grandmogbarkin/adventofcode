@@ -17,6 +17,7 @@ impl ALU {
         }
     }
 
+    #[allow(dead_code)]
     pub fn reset(&mut self) {
         self.reg = [0; 4];
     }
@@ -31,6 +32,7 @@ impl ALU {
         }
     }
 
+    #[allow(dead_code)]
     pub fn set(&mut self, var: char, val: i64) {
         self.reg[(var as u8 - b'w') as usize] = val;
     }
@@ -109,26 +111,28 @@ impl SolutionT for Solution {
     }
 
     fn test1_result(&self) -> i64 {
-        1
+        0
     }
     fn test2_result(&self) -> i64 {
-        2
+        0
     }
 
     fn task_1(&self, filename: String) -> Result<i64, Box<dyn Error>> {
         let input = read::read_lines(filename)?;
         let mut alu = ALU::new();
-        let data: VecDeque<i64> = VecDeque::from([9, 7, 4, 1, 9, 9, 9, 3, 2, 9, 9, 9, 9, 5]);
+        let data: VecDeque<i64> = VecDeque::from([9,7,9,1,9,9,9,7,2,9,9,4,9,5]);
         alu.run(&input, Some(&data));
         println!("Input: {:?}, Result: {}", data, alu.get('z'));
-        Ok(1)
+        Ok(alu.get('z'))
     }
 
     fn task_2(&self, filename: String) -> Result<i64, Box<dyn Error>> {
-        let _test = read::read_lines(filename)?;
-
-        println!("Hello 2!");
-        Ok(2)
+        let input = read::read_lines(filename)?;
+        let mut alu = ALU::new();
+        let data: VecDeque<i64> = VecDeque::from([5,1,6,1,9,1,3,1,1,8,1,1,3,1]);
+        alu.run(&input, Some(&data));
+        println!("Input: {:?}, Result: {}", data, alu.get('z'));
+        Ok(alu.get('z'))
     }
 }
 
