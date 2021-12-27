@@ -1,9 +1,38 @@
+if operand(4) == 1 {
+    push (w_x, operand15)
+} else {
+    (w_1, v) = pop
+    op = v+operand5
+    if (op > 0) {
+        w_1 = 9-op
+        w_n = 9
+    } else {
+        w_1 = 9
+        w_n = 9-op
+    }
+}
+
+
+
+// pop (11+operand5=8 w4=w3+8)
 [w4 = w3 + 8]
+
+// pop (14+operand5=-2 w7=w6-2)
 [w7 = w6 - 2]
+
+// pop (15+operand5=7 w9=w8+7)
 [w9 = w8+7]
+
+// pop (12+operand5=0 w10=w5)
 [w10 = w5]
+
+// pop (2+operand5=-5 w11=w2-5)
 [w11 = w2 - 5]
+
+// pop (8+operand5=2 w12=w1+2)
 [w12=w1+2]
+
+// pop (7+operand5=-4 w13=w0-4)
 [w13=w0-4]
 
 Max:
@@ -15,7 +44,8 @@ w0=5 w1=1 w2=6 w4=1 w3=9 w5=1 w6=3 w7=1 w8=1 w9=8 w10=1 w11=1 w12=3 w13=1
 51619131181131
 
 
-
+// operand(4) == 1 then push (w_x, operand15)
+// (w0, 7)
 1   inp w    [w0]
     mul x 0  
     add x z  
@@ -34,6 +64,7 @@ w0=5 w1=1 w2=6 w4=1 w3=9 w5=1 w6=3 w7=1 w8=1 w9=8 w10=1 w11=1 w12=3 w13=1
     add y 7  
     mul y x  [y=w0+7]
     add z y  [z = w0 + 7]
+// (w0,7), (w1,8)
 2   inp w    [w1]
     mul x 0  
     add x z  
@@ -52,6 +83,7 @@ w0=5 w1=1 w2=6 w4=1 w3=9 w5=1 w6=3 w7=1 w8=1 w9=8 w10=1 w11=1 w12=3 w13=1
     add y 8  
     mul y x  [y=  w1 + 8]
     add z y    [z = 1*26w0 + w1 + 7*26 + 8]
+// (w0,7), (w1,8), (w2, 2)
 3   inp w    [w2]
     mul x 0  
     add x z  
@@ -70,6 +102,7 @@ w0=5 w1=1 w2=6 w4=1 w3=9 w5=1 w6=3 w7=1 w8=1 w9=8 w10=1 w11=1 w12=3 w13=1
     add y 2  
     mul y x  [y= w2 + 2]
     add z y  [z = 2*26w0 + 1*26w1 + w2 + 7*26*26 + 8*26 + 2]
+// (w0,7), (w1,8), (w2, 2), (w3, 11)
 4   inp w    [w3]
     mul x 0  
     add x z  
@@ -88,6 +121,8 @@ w0=5 w1=1 w2=6 w4=1 w3=9 w5=1 w6=3 w7=1 w8=1 w9=8 w10=1 w11=1 w12=3 w13=1
     add y 11  
     mul y x  [y = w3 + 11]
     add z y  [z = 3*26w0 + 2*26w1 + 1*26w2 + w3 + 7*26*26*26 + 8*26*26 + 2*26 + 11]
+// operand(4) == 26 then pop (11+operand5=8 w4=w3+8)
+// (w0,7), (w1,8), (w2, 2)
 5   inp w    [w4]
     mul x 0  
     add x z  
@@ -106,6 +141,7 @@ w0=5 w1=1 w2=6 w4=1 w3=9 w5=1 w6=3 w7=1 w8=1 w9=8 w10=1 w11=1 w12=3 w13=1
     add y 6  
     mul y x  [y = 0]
     add z y  [z = 2*26w0 + 1*26w1 + w2 + 7*26*26 + 8*26 + 2]
+// (w0,7), (w1,8), (w2, 2), (w5, 12)
 6   inp w    [w5]
     mul x 0  
     add x z  
@@ -124,6 +160,7 @@ w0=5 w1=1 w2=6 w4=1 w3=9 w5=1 w6=3 w7=1 w8=1 w9=8 w10=1 w11=1 w12=3 w13=1
     add y 12   
     mul y x  [y = w5 + 12]
     add z y  [z = 3*26w0 + 2*26w1 + 1*26w2 + w5 + 7*3*26 + 8*2*26 + 2*1*26 + 12]
+// (w0,7), (w1,8), (w2, 2), (w5, 12), (w6, 14)
 7   inp w    [w6]
     mul x 0  
     add x z  
@@ -142,6 +179,8 @@ w0=5 w1=1 w2=6 w4=1 w3=9 w5=1 w6=3 w7=1 w8=1 w9=8 w10=1 w11=1 w12=3 w13=1
     add y 14  
     mul y x  [y = w6 + 14]
     add z y  [z = 4*26w0 + 3*26w1 + 2*26w2 + 1*26w5 + w6 + 7*4*26 + 8*3*26 + 2*2*26 + 12*1*26 + 14]
+// pop (14+operand5=-2 w7=w6-2)
+// (w0,7), (w1,8), (w2, 2), (w5, 12)
 8   inp w    [w7]
     mul x 0  
     add x z  
@@ -160,6 +199,7 @@ w0=5 w1=1 w2=6 w4=1 w3=9 w5=1 w6=3 w7=1 w8=1 w9=8 w10=1 w11=1 w12=3 w13=1
     add y 13  
     mul y x  [y = 0]
     add z y  [z = 3*26w0 + 2*26w1 + 1*26w2 + w5 + 7*3*26 + 8*2*26 + 2*1*26 + 12]
+// (w0,7), (w1,8), (w2, 2), (w5, 12), (w8, 15)
 9   inp w    [w8]
     mul x 0  
     add x z  
@@ -178,6 +218,8 @@ w0=5 w1=1 w2=6 w4=1 w3=9 w5=1 w6=3 w7=1 w8=1 w9=8 w10=1 w11=1 w12=3 w13=1
     add y 15  
     mul y x  [y = w8 + 15]
     add z y  [z = 4*26w0 + 3*26w1 + 2*26w2 + 1*26w5 + w8 + 7*4*26 + 8*3*26 + 2*2*26 + 12*1*26 + 15]
+// pop (15+operand5=7 w9=w8+7)
+// (w0,7), (w1,8), (w2, 2), (w5, 12)
 10  inp w    [w9]
     mul x 0  
     add x z  
@@ -196,6 +238,8 @@ w0=5 w1=1 w2=6 w4=1 w3=9 w5=1 w6=3 w7=1 w8=1 w9=8 w10=1 w11=1 w12=3 w13=1
     add y 10  
     mul y x  [y=0]
     add z y  [z = 3*26w0 + 2*26w1 + 1*26w2 + w5 + 7*3*26 + 8*2*26 + 2*1*26 + 12]
+// pop (12+operand5=0 w10=w5)
+// (w0,7), (w1,8), (w2, 2)
 11  inp w    [w10]
     mul x 0  
     add x z  
@@ -214,6 +258,8 @@ w0=5 w1=1 w2=6 w4=1 w3=9 w5=1 w6=3 w7=1 w8=1 w9=8 w10=1 w11=1 w12=3 w13=1
     add y 6  
     mul y x  [y=0]
     add z y  [z = 2*26w0 + 1*26w1 + w2 + 7*2*26 + 8*1*26 + 2]
+// pop (2+operand5=-5 w11=w2-5)
+// (w0,7), (w1,8)
 12  inp w    [w11]
     mul x 0  
     add x z  
@@ -232,6 +278,8 @@ w0=5 w1=1 w2=6 w4=1 w3=9 w5=1 w6=3 w7=1 w8=1 w9=8 w10=1 w11=1 w12=3 w13=1
     add y 10  
     mul y x  [y=0]
     add z y  [z = 1*26w0 + w1 + 7*1*26 + 8]
+// pop (8+operand5=2 w12=w1+2)
+// (w0,7)
 13  inp w    [w12]
     mul x 0  
     add x z  
@@ -250,6 +298,7 @@ w0=5 w1=1 w2=6 w4=1 w3=9 w5=1 w6=3 w7=1 w8=1 w9=8 w10=1 w11=1 w12=3 w13=1
     add y 8  
     mul y x  [y=0]
     add z y  [z = w0 + 7]
+// pop (7+operand5=-4 w13=w0-4)
 14  inp w    [w13]
     mul x 0  
     add x z  
