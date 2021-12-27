@@ -31,6 +31,10 @@ impl ALU {
         }
     }
 
+    pub fn set(&mut self, var: char, val: i64) {
+        self.reg[(var as u8 - b'w') as usize] = val;
+    }
+
     pub fn run(&mut self, input: &Vec<String>, data: Option<&VecDeque<i64>>) {
         if data != None {
             self.input = data.unwrap().to_owned();
@@ -113,10 +117,10 @@ impl SolutionT for Solution {
 
     fn task_1(&self, filename: String) -> Result<i64, Box<dyn Error>> {
         let input = read::read_lines(filename)?;
-        let data: VecDeque<i64> = VecDeque::from([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5]);
         let mut alu = ALU::new();
+        let data: VecDeque<i64> = VecDeque::from([9, 7, 4, 1, 9, 9, 9, 3, 2, 9, 9, 9, 9, 5]);
         alu.run(&input, Some(&data));
-        println!("Result: {}", alu.get('z'));
+        println!("Input: {:?}, Result: {}", data, alu.get('z'));
         Ok(1)
     }
 
@@ -136,6 +140,12 @@ pub fn main() {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    // #[test]
+    // fn it_is_working() {
+    //     let d = Solution {};
+    //     Exercise::run(&d, true)
+    // }
 
     #[test]
     fn test_mul_3() {
@@ -175,7 +185,7 @@ mod tests {
         .iter()
         .map(|s| s.to_string())
         .collect();
-        
+
         let mut alu = ALU::new();
         let mut data = VecDeque::from([15]);
         alu.run(&input, Some(&data));
@@ -184,7 +194,7 @@ mod tests {
         assert_eq!(1, alu.get('y'));
         assert_eq!(1, alu.get('z'));
         alu.reset();
-        
+
         data = VecDeque::from([14]);
         alu.run(&input, Some(&data));
         assert_eq!(1, alu.get('w'));
@@ -200,7 +210,7 @@ mod tests {
         assert_eq!(0, alu.get('y'));
         assert_eq!(1, alu.get('z'));
         alu.reset();
-        
+
         data = VecDeque::from([10]);
         alu.run(&input, Some(&data));
         assert_eq!(1, alu.get('w'));
