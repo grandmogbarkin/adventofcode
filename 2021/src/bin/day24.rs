@@ -146,6 +146,10 @@ fn run_task(input: &[String], func: &str) -> [i64; 14] {
     let mut stack: Vec<(usize, i64)> = vec![];
     let mut res_max = [0; 14];
     let mut res_min = [0; 14];
+    // Consider each block after an inp separately
+    // Read the operand of command 4, if it's a 1, push current idx and operand of command 15
+    // If it's not (it's a 26), pop, then solve min/max for:
+    //   cur_idx = pop_idx + pop_v + op5
     for idx in 0..=13 {
         let op4 = input[4 + (idx * 18)].split(' ').collect::<Vec<_>>();
         if get_num(op4[2]) == 1 {
