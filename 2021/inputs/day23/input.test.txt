@@ -1,0 +1,59 @@
+
+#############
+#...........#
+###A#C#C#D###
+  #D#C#B#A#
+  #D#B#A#C#
+  #B#D#A#B#
+  #########
+
+
+
+
+
+#############
+#01.2.3.4.56#  r
+###0#2#2#3### 0
+  #3#2#1#0#   1
+  #3#1#0#2#   2
+  #1#3#0#1#   3
+  #########
+   0 1 2 3   c
+
+
+[[0,2,2,3],
+ [3,2,1,0],
+ [3,1,0,2],
+ [1,3,0,1]]
+ 
+y+1 to exit
+corr = [[2,1,1,3,5,7,8],
+        [4,3,1,1,3,5,6],
+        [6,5,3,1,1,3,4],
+        [8,7,5,3,1,1,2]]
+
+
+for (i, a) in corridor.enumerate() {
+    if a >= 0 {
+        if can_move_home(i, a) {
+            // do move
+            final_cost += (corr[i]+depth(a)) * cost[a]
+            // start over
+        }
+    }
+}
+
+for (i,row) in home.enumerate() {
+    for (j,a) in row.enumerate() {
+        if a == i {
+            if no more a's below, continue
+        }
+        for (available corridor locations) {
+            final_cost += (corr[j]+i) * cost[a];
+            final_cost += // move amphipod to corridor location, and recurse
+        }
+    }
+}
+
+if solved, print final_cost
+final_cost
