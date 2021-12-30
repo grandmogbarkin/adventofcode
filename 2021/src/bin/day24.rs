@@ -200,10 +200,8 @@ mod tests {
 
     #[test]
     fn test_mul_3() {
-        let input = ["inp z", "inp x", "mul z 3", "eql z x"]
-            .iter()
-            .map(|s| s.to_string())
-            .collect();
+        let input_str = ["inp z", "inp x", "mul z 3", "eql z x"];
+        let input = input_str.iter().map(|s| s.to_string()).collect::<Vec<String>>();
         let mut alu = Alu::new();
 
         let mut data = VecDeque::from([3, 9]);
@@ -229,13 +227,11 @@ mod tests {
 
     #[test]
     fn test_bin() {
-        let input = [
+        let input_str = [
             "inp w", "add z w", "mod z 2", "div w 2", "add y w", "mod y 2", "div w 2", "add x w",
             "mod x 2", "div w 2", "mod w 2",
-        ]
-        .iter()
-        .map(|s| s.to_string())
-        .collect();
+        ];
+        let input = input_str.iter().map(|s| s.to_string()).collect::<Vec<String>>();
 
         let mut alu = Alu::new();
         let mut data = VecDeque::from([15]);

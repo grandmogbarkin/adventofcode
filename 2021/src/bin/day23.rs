@@ -89,7 +89,7 @@ fn is_solved(input: [[i64; 4]; 4]) -> bool {
             }
         }
     }
-    return true;
+    true
 }
 
 #[cached]
@@ -99,8 +99,8 @@ fn run(input: [[i64; 4]; 4], corridor: [i64; 7], initial_cost: i64) -> i64 {
         return initial_cost;
     }
 
-    let mut output = input.clone();
-    let mut cor_out = corridor.clone();
+    let mut output = input;
+    let mut cor_out = corridor;
     let mut final_cost = initial_cost;
 
     let mut can_move = true;
@@ -186,15 +186,16 @@ fn run(input: [[i64; 4]; 4], corridor: [i64; 7], initial_cost: i64) -> i64 {
                         return i64::MAX;
                     }
                     // can move to c_i
-                    let mut tmp_out = output.clone();
-                    let mut tmp_cor = cor_out.clone();
+                    let mut tmp_out = output;
+                    let mut tmp_cor = cor_out;
                     tmp_out[i][j] = -1;
                     tmp_cor[c_i] = *a;
                     let new_cost = final_cost
                         + ((CORRCOST[*a as usize][c_i] + i as i64 + 1) * COST[*a as usize]);
                     run(tmp_out, tmp_cor, new_cost)
                 })
-                .min().unwrap();
+                .min()
+                .unwrap();
             if res < min_cost {
                 min_cost = res;
             }
@@ -211,11 +212,11 @@ pub fn main() {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-
-    #[test]
-    fn it_is_working() {
-        let d = Solution {};
-        Exercise::run(&d, true)
-    }
+    // use super::*;
+    //
+    // #[test]
+    // fn it_is_working() {
+    //     let d = Solution {};
+    //     Exercise::run(&d, true)
+    // }
 }

@@ -45,7 +45,7 @@ impl SolutionT for Solution {
             ];
             let mut skip = false;
             for c in coords {
-                if c < 0 || c > 100 {
+                if !(0..=100).contains(&c) {
                     // println!("Skipping {:?}", cap);
                     skip = true;
                     break;
@@ -75,16 +75,16 @@ impl SolutionT for Solution {
         )
         .unwrap();
 
-        let mut reactor: HashMap<(usize, usize, usize), i64> = HashMap::new();
+        let reactor: HashMap<(usize, usize, usize), i64> = HashMap::new();
         let mut max = std::i64::MIN;
         let mut min = std::i64::MAX;
-        
+
         for line in input {
             let cap_r = re.captures(&line);
             // println!("{}: {:?}", line, cap_r);
             // if cap_r.is_none() { continue; }
             let cap = cap_r.unwrap();
-            let state = &cap[1];
+            let _state = &cap[1];
             let coords: [i64; 6] = [
                 cap[2].parse::<i64>().unwrap(),
                 cap[3].parse::<i64>().unwrap(),
@@ -106,7 +106,7 @@ impl SolutionT for Solution {
             //     }
             // }
         }
-        
+
         println!("Max: {}, Min: {}", max, min);
 
         Ok(reactor.values().sum::<i64>())
@@ -120,11 +120,11 @@ pub fn main() {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    // use super::*;
 
-    #[test]
-    fn it_is_working() {
-        let d = Solution {};
-        Exercise::run(&d, true)
-    }
+    // #[test]
+    // fn it_is_working() {
+    //     let d = Solution {};
+    //     Exercise::run(&d, true)
+    // }
 }

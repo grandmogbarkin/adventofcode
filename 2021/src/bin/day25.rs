@@ -5,9 +5,9 @@ use advent2021::read;
 
 #[derive(Clone, PartialEq, Debug)]
 enum Cucumber {
-    EMPTY,
-    EEAST,
-    SOUTH,
+    Empty,
+    East,
+    South,
 }
 
 #[derive(Debug)]
@@ -20,19 +20,19 @@ impl SeaBed {
         SeaBed { floor: vec![] }
     }
 
-    pub fn add_row(&mut self, row: &String) {
+    pub fn add_row(&mut self, row: &str) {
         let idx = self.floor.len();
         self.floor.push(vec![]);
         for c in row.chars() {
             match c {
                 '>' => {
-                    self.floor[idx].push(Cucumber::EEAST);
+                    self.floor[idx].push(Cucumber::East);
                 }
                 'v' => {
-                    self.floor[idx].push(Cucumber::SOUTH);
+                    self.floor[idx].push(Cucumber::South);
                 }
                 '.' => {
-                    self.floor[idx].push(Cucumber::EMPTY);
+                    self.floor[idx].push(Cucumber::Empty);
                 }
                 _ => unreachable!(),
             }
@@ -45,14 +45,14 @@ impl SeaBed {
         let mut floor_new = self.floor.clone();
         for (x, row) in self.floor.iter().enumerate() {
             for (y, c) in row.iter().enumerate() {
-                if *c != Cucumber::EEAST {
+                if *c != Cucumber::East {
                     continue;
                 }
                 let next_y = if y + 1 < row.len() { y + 1 } else { 0 };
-                if self.floor[x][next_y] == Cucumber::EMPTY {
+                if self.floor[x][next_y] == Cucumber::Empty {
                     moves += 1;
-                    floor_new[x][y] = Cucumber::EMPTY;
-                    floor_new[x][next_y] = Cucumber::EEAST;
+                    floor_new[x][y] = Cucumber::Empty;
+                    floor_new[x][next_y] = Cucumber::East;
                 }
             }
         }
@@ -61,14 +61,14 @@ impl SeaBed {
 
         for (x, row) in self.floor.iter().enumerate() {
             for (y, c) in row.iter().enumerate() {
-                if *c != Cucumber::SOUTH {
+                if *c != Cucumber::South {
                     continue;
                 }
                 let next_x = if x + 1 < self.floor.len() { x + 1 } else { 0 };
-                if self.floor[next_x][y] == Cucumber::EMPTY {
+                if self.floor[next_x][y] == Cucumber::Empty {
                     moves += 1;
-                    floor_new[x][y] = Cucumber::EMPTY;
-                    floor_new[next_x][y] = Cucumber::SOUTH;
+                    floor_new[x][y] = Cucumber::Empty;
+                    floor_new[next_x][y] = Cucumber::South;
                 }
             }
         }
